@@ -9,6 +9,7 @@ int menuInicio();
 int menuAdmin();
 int menuCliente();
 
+void inicioSesion();
 
 //Sub menús administrador
 

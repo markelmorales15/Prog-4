@@ -13,7 +13,7 @@
 
 //ADMINISTRADOR:
 
-Producto anadirProducto(){
+Producto anadirProducto(ListaProductos *lp){
 	Producto p;
 	printf("Codigo: \n");
 	fflush(stdout);
@@ -47,7 +47,7 @@ Producto anadirProducto(){
 //}
 
 //Que se pueda cambiar todo o codigo no? + como preguntar que producto modificar
-Producto modificarProducto(Producto p){
+Producto modificarProducto(Producto *p){
 //	printf("1. Modificar codigo");
 	printf("1. Modificar nombre");
 	printf("2. Modificar cantidad");
@@ -58,31 +58,31 @@ Producto modificarProducto(Producto p){
 	fflush(stdin);
 }
 
-void modificarNombre(Producto p){
+void modificarNombre(Producto *p){
 
 }
 
-void modificarDescripcion(Producto p){
+void modificarDescripcion(Producto *p){
 
 }
 
-void modificarCantidad(Producto p){
+void modificarCantidad(Producto *p){
 
 }
 
-void modificarPrecio(Producto p){
+void modificarPrecio(Producto *p){
 
 }
 
 
-Producto eliminarProducto(){
+Producto eliminarProducto(Producto p, ListaProductos *lp){
 
 }
 
 
 
 //CLIENTE
-void visualizarCarrito(Carrito c){
+Carrito visualizarCarrito(Carrito c){
 	//Mostrar productos cliente
 	int opcion;
 	printf("1. Comprar \n");
@@ -121,14 +121,14 @@ void devolverProducto(Producto *p){
 	p->cantidad++;	//Está bien escrito?
 	printf("Devolucion finalizada. \n");
 }
-void visualizarTienda(listaProductos lp){
+ListaProductos visualizarTienda(ListaProductos lp){
 	int i;
 	for (i = 0; i < lp.numProductos; i++) {
-		printf("CÓDIGO DEL PRODUCTO: %s\n", lp.aProductos[i]->cod_p);
-		printf("NOMBRE: %s\n", lp.aProductos[i]->nombre);
-		printf("CANTIDAD: %d\n", lp.aProductos[i]->cantidad);
-		printf("PRECIO: %s\n", lp.aProductos[i]->precio);
-		printf("CATEGORIA: %d\n", lp.aProductos[i]->cod_c);	//Coger el codigo de la categoria e imprimir el nombre
+		printf("CÓDIGO DEL PRODUCTO: %s\n", lp.aProductos[i].cod_p);
+		printf("NOMBRE: %s\n", lp.aProductos[i].nombre);
+		printf("CANTIDAD: %d\n", lp.aProductos[i].cantidad);
+		printf("PRECIO: %s\n", lp.aProductos[i].precio);
+		printf("CATEGORIA: %d\n", lp.aProductos[i].cod_c);	//Coger el codigo de la categoria e imprimir el nombre
 	}
 
 }

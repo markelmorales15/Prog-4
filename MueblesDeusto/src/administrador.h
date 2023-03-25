@@ -14,4 +14,9 @@ typedef struct{
     char contrasena[20];
 } Admin;
 
+typedef struct{
+	Admin *aAdmin;
+	int numC;	//Numero de adminstradores en la lista
+}ListaAdmin;
+
 #endif /* ADMINISTRADOR_H_ */
