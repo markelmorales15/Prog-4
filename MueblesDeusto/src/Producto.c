@@ -58,7 +58,8 @@ Producto modificarProducto(Producto *p){
 	fflush(stdin);
 }
 
-void modificarNombre(Producto *p){
+/*
+ * void modificarNombre(Producto *p){
 
 }
 
@@ -78,7 +79,11 @@ void modificarPrecio(Producto *p){
 Producto eliminarProducto(Producto p, ListaProductos *lp){
 
 }
+----------------YO CREO QUE ASI SERIA MAS FACIL-------------------
+void ModificarProducto(Producto *p ){ CON UNA SOLA FUNCION MODIFICAS TODOS LOS ATRIBUTOS
 
+}
+ */
 
 
 //CLIENTE
@@ -130,7 +135,7 @@ ListaProductos visualizarTienda(ListaProductos lp){
 		printf("PRECIO: %s\n", lp.aProductos[i].precio);
 		printf("CATEGORIA: %d\n", lp.aProductos[i].cod_c);	//Coger el codigo de la categoria e imprimir el nombre
 	}
-
+	return 0;
 }
 
 

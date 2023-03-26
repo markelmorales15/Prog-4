@@ -36,14 +36,6 @@ typedef struct{
 	int numProductos;
 } ListaProductos;
 
-typedef struct{
-	Producto *aProductos;
-	int tam;
-	int numProductos;
-	Cliente dni;
-} Carrito;
-
-
 //ADMIN
 Producto anadirProducto(ListaProductos *lp);
 Producto buscarProducto(ListaProductos lp);

@@ -2,8 +2,8 @@
  * DUDA: Hacer submenús aquí o en las funciones directamente?
  */
 
-#ifndef FUNCIONES_H_
-#define FUNCIONES_H_
+#ifndef MENUS_H_
+#define MENUS_H_
 
 int menuInicio();
 int menuAdmin();
@@ -14,4 +14,4 @@ void inicioSesion();
 //Sub menús administrador
 
 
-#endif /* FUNCIONES_H_ */
+#endif /* MENUS_H_ */

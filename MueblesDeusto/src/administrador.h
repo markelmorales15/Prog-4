@@ -1,6 +1,6 @@
 #ifndef ADMINISTRADOR_H_
 #define ADMINISTRADOR_H_
-
+#include "Producto.h"
 /*
  * Atributos:
  * 	- dni
@@ -19,4 +19,13 @@ typedef struct{
 	int numC;	//Numero de adminstradores en la lista
 }ListaAdmin;
 
+
+Producto anadirProducto(ListaProductos *lp);
+Producto buscarProducto(ListaProductos lp);
+Producto modificarProducto(Producto *p);
+void modificarNombre(Producto *p);
+void modificarDescripcion(Producto *p);
+void modificarCantidad(Producto *p);
+void modificarPrecio(Producto *p);
+Producto eliminarProducto(Producto p, ListaProductos *lp);
 #endif /* ADMINISTRADOR_H_ */

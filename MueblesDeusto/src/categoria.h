@@ -13,3 +13,13 @@ typedef struct{
 } Categoria;
 
 #endif /* CATEGORIA_H_ */
+
+/*POSIBLE IDEA
+ * enum CategoriaProducto {
+   ELECTRONICA,
+   ROPA,
+   ALIMENTOS,
+   HOGAR
+};
+ *
+ */

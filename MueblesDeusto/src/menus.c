@@ -2,11 +2,11 @@
  * DUDAS: en los menús, int o void -->
  */
 
-#include "funciones.h"
 #include "cliente.h"
 #include "administrador.h"
 #include <stdio.h>
 #include <string.h>
+#include "menus.h"
 
 
 int menuInicio(){

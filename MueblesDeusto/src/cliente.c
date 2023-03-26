@@ -2,7 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include "cliente.h"
-#include "funciones.h"
+
+#include "menus.h"
 
 Cliente registro() {
 	Cliente c;

@@ -2,14 +2,15 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "funciones.h"
 #include "cliente.h"
+#include "menus.h"
 
 int main(void) {
 
 	int opcion, opcion2, opcion3;
 	int i, clienteExiste = 0;
-	//, pos = 0, enc = 0
+	//, pos = 0, enc = 0ç
+	//esto mas adelante harbria que meterlo en el txt para lectura de ficheros
 	Cliente c1 = {"111A", "A", "111"};
 	Cliente c2 = {"222B", "B", "222"};
 	Cliente c3 = {"333C", "C", "333"};
