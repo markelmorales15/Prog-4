@@ -1,6 +1,6 @@
 #ifndef CLIENTE_H_
 #define CLIENTE_H_
-#include "Producto.h"
+#include "producto.h"
 /*
  * Atributos:
  * 	- dni

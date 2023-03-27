@@ -4,7 +4,7 @@
 #include "administrador.h"
 
 #include "menus.h"
-#include "Producto.h"
+#include "producto.h"
 
 Producto anadirProducto(ListaProductos *lp){
 return 0;

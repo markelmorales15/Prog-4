@@ -1,6 +1,6 @@
 #ifndef ADMINISTRADOR_H_
 #define ADMINISTRADOR_H_
-#include "Producto.h"
+#include "producto.h"
 /*
  * Atributos:
  * 	- dni
