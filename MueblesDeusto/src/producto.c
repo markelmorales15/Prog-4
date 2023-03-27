@@ -13,7 +13,7 @@
 
 //ADMINISTRADOR:
 
-Producto anadirProducto(ListaProductos *lp){
+void anadirProducto(ListaProductos *lp){
 	Producto p;
 	printf("Codigo: \n");
 	fflush(stdout);
@@ -35,19 +35,20 @@ Producto anadirProducto(ListaProductos *lp){
 	printf("Categoria: \n");
 	fflush(stdout);
 	fflush(stdin);
-	gets(p.cod_c);
-	return p;
+	gets(p.tipo);
 }
 
-//Producto buscarProducto(){
-//	printf("¿Que producto desea modificar?: ")
-//	fflush(stdout);
-//	fflush(stdin);
-//	gets(p.cod_p);
-//}
+Producto buscarProducto(){
+	Producto p;
+	printf("¿Que producto desea modificar?: ");
+	fflush(stdout);
+	fflush(stdin);
+	gets(p.cod_p);
+	return  p;
+}
 
 //Que se pueda cambiar todo o codigo no? + como preguntar que producto modificar
-Producto modificarProducto(Producto *p){
+void modificarProducto(Producto *p){
 //	printf("1. Modificar codigo");
 	printf("1. Modificar nombre");
 	printf("2. Modificar cantidad");
@@ -58,37 +59,10 @@ Producto modificarProducto(Producto *p){
 	fflush(stdin);
 }
 
-/*Para hacer esto igual es mejor tener un "almacen" con lista de productos que hay el num de productos de
- * ese array
- * Luego hacemos lo de pos=0 y enc=0 (lo mismo con los demás modificar).
- */
-
-
-void modificarNombre(Almacen *a){
-	int enc=0, pos = 0;
-	while(enc != 0)
-		for (int i = 0; i<a->numP; i++){
-
-	}
+void eliminarProducto(Producto p, ListaProductos *lp){
 
 }
 /*
-void modificarDescripcion(Producto *p){
-
-}
-
-void modificarCantidad(Producto *p){
-
-}
-
-void modificarPrecio(Producto *p){
-
-}
-
-
-Producto eliminarProducto(Producto p, ListaProductos *lp){
-
-}
 ----------------YO CREO QUE ASI SERIA MAS FACIL-------------------
 void ModificarProducto(Producto *p ){ CON UNA SOLA FUNCION MODIFICAS TODOS LOS ATRIBUTOS
 
@@ -97,37 +71,6 @@ void ModificarProducto(Producto *p ){ CON UNA SOLA FUNCION MODIFICAS TODOS LOS A
 
 
 //CLIENTE
-Carrito visualizarCarrito(Carrito c){
-	//Mostrar productos cliente
-	int opcion;
-	printf("1. Comprar \n");
-	printf("2. Eliminar producto \n");
-	printf("0. Volver \n");
-	fflush(stdout);
-	fflush(stdin);
-	printf("Introduce un número: ");
-	fflush(stdout);
-	fflush(stdin);
-	scanf("%i", opcion);
-
-	do {
-		switch (opcion) {
-		case 1:
-			//Codigo comprar
-			break;
-		case 2:
-			//Codigo eliminar producto
-			break;
-		case 0:
-			//Volver al menú del cliente
-			break;
-		default:
-			printf("Error! \n");
-			fflush(stdout);
-			break;
-		}
-	} while (opcion != 0);
-}
 void devolverProducto(Producto *p){
 	printf("Introduce el codigo del producto que quiera devolver: \n");
 	fflush(stdout);
@@ -143,7 +86,7 @@ ListaProductos visualizarTienda(ListaProductos lp){
 		printf("NOMBRE: %s\n", lp.aProductos[i].nombre);
 		printf("CANTIDAD: %d\n", lp.aProductos[i].cantidad);
 		printf("PRECIO: %s\n", lp.aProductos[i].precio);
-		printf("CATEGORIA: %d\n", lp.aProductos[i].cod_c);	//Coger el codigo de la categoria e imprimir el nombre
+		printf("CATEGORIA: %d\n", lp.aProductos[i].tipo);	//Coger el codigo de la categoria e imprimir el nombre
 	}
 	return 0;
 }

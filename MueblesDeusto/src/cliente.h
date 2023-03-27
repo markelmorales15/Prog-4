@@ -1,6 +1,6 @@
 #ifndef CLIENTE_H_
 #define CLIENTE_H_
-#include "producto.h"
+
 /*
  * Atributos:
  * 	- dni
@@ -26,6 +26,5 @@ typedef struct{
 Cliente registro();
 void anadirClientesALista(ListaClientes *lc, Cliente nuevoCliente);
 void imprimirListaClientes (ListaClientes lc);
-void aniadirProductoCarrito();
 
 #endif /* CLIENTE_H_ */

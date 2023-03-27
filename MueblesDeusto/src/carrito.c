@@ -1,10 +1,40 @@
-/*
- * carrito.c
- *
- *  Created on: 26 mar 2023
- *      Author: marke
- */
+#include "carrito.h"
+#include <stdio.h>
 
-void mostrarCarrito(Carrito c);//ver carrito de compra
-void EliminarProductoCarrito(Producto *lista, char *nombre);//el puntero de nombre no es 100% correcrto, hasta que se pergunte a marian
-void AniadirProducto(Producto *lista, Producto p);
+void mostraCarrito(Carrito c){
+	//Mostrar productos cliente
+	int opcion;
+	printf("1. Comprar \n");
+	printf("2. Eliminar producto \n");
+	printf("0. Volver \n");
+	fflush(stdout);
+	fflush(stdin);
+	printf("Introduce un número: ");
+	fflush(stdout);
+	fflush(stdin);
+	scanf("%i", opcion);
+
+	do {
+		switch (opcion) {
+		case 1:
+			//Codigo comprar
+			break;
+		case 2:
+			//Codigo eliminar producto
+			break;
+		case 0:
+			//Volver al menú del cliente
+			break;
+		default:
+			printf("Error! \n");
+			fflush(stdout);
+			break;
+		}
+	} while (opcion != 0);
+}
+void eliminarProductoCarrito(Carrito *carrito, Producto producto){
+
+}
+void aniadirProductoCarrito(Carrito* carrito, Producto p){
+
+}

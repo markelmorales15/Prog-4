@@ -9,7 +9,7 @@
 #include "../producto.h"
 
 void insertarProductoBD(sqlite3* db, Producto p);
-void cargarProductos(sqlite3* db, Almacen* al);
+void cargarProductos(sqlite3* db, ListaProductos lp);
 void modificarProductoBD(sqlite3* db, Producto p);
 void eliminarProductoBD(sqlite3* db, Producto p);
 

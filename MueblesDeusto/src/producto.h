@@ -27,13 +27,8 @@ typedef struct{
     char descripcion[20];
     int cantidad;
     double precio;
-    Categoria cod_c[10];
+    enum Categoria tipo;
 } Producto;
-
-typedef struct{
-	Producto* productos;
-	int numP;
-}Almacen;
 
 typedef struct{
 	Producto *aProductos;
@@ -42,17 +37,12 @@ typedef struct{
 } ListaProductos;
 
 //ADMIN
-Producto anadirProducto(ListaProductos *lp);
+void anadirProducto(ListaProductos *lp);
 Producto buscarProducto(ListaProductos lp);
-Producto modificarProducto(Producto *p);
-void modificarNombre(Producto *p);
-void modificarDescripcion(Producto *p);
-void modificarCantidad(Producto *p);
-void modificarPrecio(Producto *p);
-Producto eliminarProducto(Producto p, ListaProductos *lp);	//Solo lista o producto tambien?
+void modificarProducto(Producto *p);
+void eliminarProducto(Producto p, ListaProductos *lp);	//Solo lista o producto tambien?
 
 //CLIENTE
-Carrito visualizarCarrito(Carrito c);
 void devolverProducto(Producto *p);
 ListaProductos visualizarTienda(ListaProductos lp);
 
