@@ -7,6 +7,8 @@
 
 #ifndef CARRITO_H_
 #define CARRITO_H_
+#include "cliente.h"
+#include "producto.h"
 
 typedef struct{
 	Producto *aProductos;

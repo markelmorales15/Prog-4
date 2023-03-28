@@ -20,14 +20,14 @@
  * 	- precio
  * 	- cod_c (Categoria)
  */
-
+#include "categoria.h"
 typedef struct{
     char cod_p[10];
     char nombre[20];
     char descripcion[20];
     int cantidad;
     double precio;
-    enum Categoria tipo;
+    CategoriaProducto tipo;
 } Producto;
 
 typedef struct{
@@ -41,10 +41,16 @@ void anadirProducto(ListaProductos *lp);
 Producto buscarProducto(ListaProductos lp);
 void modificarProducto(Producto *p);
 void eliminarProducto(Producto p, ListaProductos *lp);	//Solo lista o producto tambien?
+void modificarNombre(Producto *p);
+void modificarDescripcion(Producto *p);
+void modificarCantidad(Producto *p);
+void modificarPrecio(Producto *p);
+void volcarFicheroAListaProductos(ListaProductos *lp, char *nombreFichero);
+void imprimirListaProductos (ListaProductos lp);
 
 //CLIENTE
 void devolverProducto(Producto *p);
-ListaProductos visualizarTienda(ListaProductos lp);
+void visualizarTienda(ListaProductos lp);
 
 //Estadisticas
 

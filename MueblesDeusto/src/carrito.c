@@ -12,7 +12,7 @@ void mostraCarrito(Carrito c){
 	printf("Introduce un número: ");
 	fflush(stdout);
 	fflush(stdin);
-	scanf("%i", opcion);
+	scanf("%i", &opcion);
 
 	do {
 		switch (opcion) {

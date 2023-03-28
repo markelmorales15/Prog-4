@@ -2,6 +2,8 @@
 #define CLIENTE_H_
 
 /*
+ * Pueden ser tanto los administradores como los usuarios
+ *
  * Atributos:
  * 	- dni
  * 	- usuario
@@ -21,10 +23,11 @@ typedef struct{
 }ListaClientes;
 
 
-
-
-Cliente registro();
+Cliente registro();	//Siempre va a ser un usuario, los administradores los metemos a mano en el sistema
 void anadirClientesALista(ListaClientes *lc, Cliente nuevoCliente);
 void imprimirListaClientes (ListaClientes lc);
+void volcarFicheroAListaClientes(ListaClientes *lc, char *nombreFichero);
+void volcarListaClientesAFichero(ListaClientes *lc, char *nombreFichero);
+void liberarMemoria(ListaClientes *lc);
 
 #endif /* CLIENTE_H_ */

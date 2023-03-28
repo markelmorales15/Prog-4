@@ -3,7 +3,6 @@
  */
 
 #include "cliente.h"
-#include "administrador.h"
 #include <stdio.h>
 #include <string.h>
 #include "menus.h"
@@ -54,17 +53,15 @@ int menuCliente(){
 	return opcion;
 }
 
-void inicioSesion(){
+Cliente inicioSesion(){
 	Cliente c;
-	Admin a;
 	printf("Introduce el nombre de usuario: \n");
 	fflush(stdout);
 	fflush(stdin);
 	gets(c.usuario);
-	gets(a.usuario);
 	printf("Introduce la contrasenya: \n");
 	fflush(stdout);
 	fflush(stdin);
 	gets(c.contrasena);
-	gets(a.contrasena);
+	return c;
 }

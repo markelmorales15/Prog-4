@@ -37,9 +37,55 @@ void imprimirListaClientes (ListaClientes lc){
 	printf("Lista de clientes de MueblesDeusto: \n");
 	for(int i=0; i<lc.numC; i++){
 		printf("Cliente %d: \n", i+1);
+		fflush(stdout);
 		printf("DNI: %s\n", lc.aClientes[i].dni);
+		fflush(stdout);
 		printf("USUARIO: %s\n", lc.aClientes[i].usuario);
+		fflush(stdout);
 		printf("CONTRASENA: %s\n", lc.aClientes[i].contrasena);
+		fflush(stdout);
 
 	}
 }
+
+//TENEMOS QUE CAMBIAR EL NÚMERO DE TAM CUANDO SE AÑADAN NUEVOS CLIENTES
+void volcarFicheroAListaClientes(ListaClientes *lc, char *nombreFichero) {
+	FILE *pf;
+	int tam;
+	lc->numC = 0;
+	pf = fopen(nombreFichero, "r");
+	if (pf != (FILE*) NULL) {
+		//Leemos la línea del fichero y la guardamos en la lista en los campos correspondientes
+		fscanf(pf, "%d", &tam);	//Guardamos en tam el número de clientes, la primera línea del fichero.
+		lc->aClientes = (Cliente*) malloc(tam * sizeof(Cliente));
+
+		while (fscanf(pf, "%s %s %s", lc->aClientes[lc->numC].dni,
+				lc->aClientes[lc->numC].usuario,
+				lc->aClientes[lc->numC].contrasena) != EOF) {
+			lc->numC++;
+		}
+		fclose(pf);
+	}
+
+}
+
+//VOLCAMOS LA LISTA DE CLIENTES AL FICHERO "Clientes.txt"
+void volcarListaClientesAFichero(ListaClientes *lc, char *nombreFichero) {
+    FILE *pf;
+    pf = fopen(nombreFichero, "w");
+    if (pf != (FILE*) NULL) {
+        fprintf(pf, "%d\n", lc->numC); // Escribimos el número de clientes al principio del fichero
+        for (int i = 0; i < lc->numC; i++) {
+            fprintf(pf, "%s %s %s \n",
+                lc->aClientes[i].dni,
+                lc->aClientes[i].usuario,
+                lc->aClientes[i].contrasena);
+        }
+        fclose(pf);
+    }
+}
+
+void liberarMemoria(ListaClientes *lc) {
+    free(lc->aClientes);
+}
+

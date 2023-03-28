@@ -8,6 +8,7 @@
  */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include "producto.h"
 
@@ -26,19 +27,19 @@ void anadirProducto(ListaProductos *lp){
 	printf("Cantidad: \n");
 	fflush(stdout);
 	fflush(stdin);
-	scanf("%i", p.cantidad);
+	scanf("%i", &p.cantidad);
 	printf("Precio: \n");
 	fflush(stdout);
 	fflush(stdin);
-	scanf("%.2f", p.precio);
+	scanf("%lf", &p.precio);
 	//Categoria -- enum??
 	printf("Categoria: \n");
 	fflush(stdout);
 	fflush(stdin);
-	gets(p.tipo);
+//	gets(p.tipo);
 }
 
-Producto buscarProducto(){
+Producto buscarProducto(ListaProductos lp){
 	Producto p;
 	printf("¿Que producto desea modificar?: ");
 	fflush(stdout);
@@ -79,16 +80,66 @@ void devolverProducto(Producto *p){
 	p->cantidad++;	//Está bien escrito?
 	printf("Devolucion finalizada. \n");
 }
-ListaProductos visualizarTienda(ListaProductos lp){
+void visualizarTienda(ListaProductos lp){
 	int i;
 	for (i = 0; i < lp.numProductos; i++) {
 		printf("CÓDIGO DEL PRODUCTO: %s\n", lp.aProductos[i].cod_p);
 		printf("NOMBRE: %s\n", lp.aProductos[i].nombre);
 		printf("CANTIDAD: %d\n", lp.aProductos[i].cantidad);
-		printf("PRECIO: %s\n", lp.aProductos[i].precio);
-		printf("CATEGORIA: %d\n", lp.aProductos[i].tipo);	//Coger el codigo de la categoria e imprimir el nombre
+		printf("PRECIO: %.2f\n", lp.aProductos[i].precio);
+//		printf("CATEGORIA: %d\n", lp.aProductos[i].tipo);	//Coger el codigo de la categoria e imprimir el nombre
 	}
-	return 0;
+//	return 0;
 }
+
+void imprimirListaProductos (ListaProductos lp){
+	printf("Lista de productos de MueblesDeusto: \n");
+	for(int i=0; i<lp.numProductos; i++){
+		printf("PRODUCTO %d: \n", i+1);
+		fflush(stdout);
+		printf("CODIGO: %s\n", lp.aProductos[i].cod_p);
+		fflush(stdout);
+		printf("NOMBRE: %s\n", lp.aProductos[i].nombre);
+		fflush(stdout);
+		printf("DESCRIPCION: %s\n", lp.aProductos[i].descripcion);
+		fflush(stdout);
+		printf("CANTIDAD: %d\n", lp.aProductos[i].cantidad);
+		fflush(stdout);
+		printf("PRECIO: %lf\n", lp.aProductos[i].precio);
+		fflush(stdout);
+		printf("CATEGORIA: %d\n", lp.aProductos[i].tipo);
+		fflush(stdout);
+	}
+}
+
+void volcarFicheroAListaProductos(ListaProductos *lp, char *nombreFichero) {
+	FILE *pf;
+	int tam;
+	lp->numProductos = 0;
+	pf = fopen(nombreFichero, "r");
+	if (pf != (FILE*) NULL) {
+		fscanf(pf, "%d", &tam);
+		lp->aProductos = (Producto*) malloc(tam * sizeof(Producto));
+		while (fscanf(pf, "%s %s %s %d %lf %u",
+				lp->aProductos[lp->numProductos].cod_p,
+				lp->aProductos[lp->numProductos].nombre,
+				lp->aProductos[lp->numProductos].descripcion,
+				&(lp->aProductos[lp->numProductos].cantidad),
+				&(lp->aProductos[lp->numProductos].precio),
+				&(lp->aProductos[lp->numProductos].tipo)) != EOF) {
+			lp->numProductos++;
+		}
+		fclose(pf);
+	} else{	//Si el archivo está vacío
+		free(lp->aProductos);
+		lp->aProductos = NULL;
+		return;
+	}
+	free(lp->aProductos); // Liberar memoria
+//	lp->aProductos = NULL; // Asignar un nuevo valor
+
+}
+
+
 
 

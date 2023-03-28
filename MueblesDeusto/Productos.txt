@@ -1,0 +1,5 @@
+4
+P001 Mesa larga 4 4.52 ELECTRONICA
+P002 Mesa corta 5 8.42 ROPA
+P003 Silla larga 6 732 ALIMENTOS
+P004 Silla corta 34 23.23 ELECTRONICA
