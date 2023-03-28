@@ -10,11 +10,11 @@
  * 	- contraseña
  */
 
-typedef struct{
-    char dni[10];
-    char usuario[20];
-    char contrasena[20];
-} Cliente;
+	typedef struct{
+		char dni[10];
+		char usuario[20];
+		char contrasena[20];
+	} Cliente;
 
 
 typedef struct{

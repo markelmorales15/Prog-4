@@ -39,14 +39,17 @@ void anadirProducto(ListaProductos *lp){
 //	gets(p.tipo);
 }
 
-Producto buscarProducto(ListaProductos lp){
-	Producto p;
-	printf("¿Que producto desea modificar?: ");
-	fflush(stdout);
-	fflush(stdin);
-	gets(p.cod_p);
-	return  p;
+ListaProductos buscarProducto(ListaProductos lp, CategoriaProducto c) {
+    ListaProductos lpCategoria;
+    lpCategoria.numProductos = 0;
+    for (int i = 0; i < lp.numProductos; i++) {
+        if (lp.aProductos[i].tipo == c) {
+            lpCategoria.aProductos[lpCategoria.numProductos++] = lp.aProductos[i];
+        }
+    }
+    return lpCategoria;
 }
+
 
 //Que se pueda cambiar todo o codigo no? + como preguntar que producto modificar
 void modificarProducto(Producto *p){
@@ -72,14 +75,25 @@ void ModificarProducto(Producto *p ){ CON UNA SOLA FUNCION MODIFICAS TODOS LOS A
 
 
 //CLIENTE
-void devolverProducto(Producto *p){
-	printf("Introduce el codigo del producto que quiera devolver: \n");
-	fflush(stdout);
-	fflush(stdin);
-	gets(p->cod_p);
-	p->cantidad++;	//Está bien escrito?
-	printf("Devolucion finalizada. \n");
+void devolverProducto(ListaProductos *lp, Producto nombreProducto){
+    // Crear un objeto Producto dentro de la función
+    Producto p;
+    strcpy(p.nombre, nombreProducto.nombre); // Copiar el contenido de nombreProducto en p
+
+    // Buscar el producto en la lista
+    int i;
+    for (i = 0; i < lp->numProductos; i++) {
+        if (strcmp(lp->aProductos[i].nombre, p.nombre) == 0) {
+            // Producto encontrado, aumentar cantidad y salir del bucle
+            lp->aProductos[i].cantidad++;
+            break;
+        }
+    }
+    printf("Devolucion finalizada. \n");
 }
+
+
+
 void visualizarTienda(ListaProductos lp){
 	int i;
 	for (i = 0; i < lp.numProductos; i++) {
@@ -105,7 +119,7 @@ void imprimirListaProductos (ListaProductos lp){
 		fflush(stdout);
 		printf("CANTIDAD: %d\n", lp.aProductos[i].cantidad);
 		fflush(stdout);
-		printf("PRECIO: %lf\n", lp.aProductos[i].precio);
+		printf("PRECIO: %.2f\n", lp.aProductos[i].precio);
 		fflush(stdout);
 		printf("CATEGORIA: %d\n", lp.aProductos[i].tipo);
 		fflush(stdout);
@@ -139,6 +153,27 @@ void volcarFicheroAListaProductos(ListaProductos *lp, char *nombreFichero) {
 //	lp->aProductos = NULL; // Asignar un nuevo valor
 
 }
+
+Producto nombreProductoBorrar(){
+    Producto p;
+    printf("¿Qué producto desea eliminar?: ");
+    fflush(stdout);
+    fflush(stdin);
+    fgets(p.nombre, sizeof(p.nombre), stdin);
+    p.nombre[strcspn(p.nombre, "\n")] = '\0';  // Elimina el salto de línea final de fgets
+    return p;
+}
+
+Producto nombreProductoDevolver(){
+    Producto p;
+    printf("¿Qué producto desea devolver?: ");
+    fflush(stdout);
+    fflush(stdin);
+    fgets(p.nombre, sizeof(p.nombre), stdin);
+    p.nombre[strcspn(p.nombre, "\n")] = '\0';  // Elimina el salto de línea final de fgets
+    return p;
+}
+
 
 
 

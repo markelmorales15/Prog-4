@@ -41,9 +41,9 @@ int menuCliente(){
 	int opcion = 0;
 	printf("\nMENÚ CLIENTE: \n");
 	printf("---------------------- \n");
-	printf("1. Visualizar el carrito de la compra \n");
-	printf("2. Devolver un producto \n");
-	printf("3. Visualizar los productos de la tienda \n");
+	printf("1. Visualizar el carrito de la compra \n");	//HECHO
+	printf("2. Devolver un producto \n"); //HECHO
+	printf("3. Visualizar los productos de la tienda \n"); //HECHO
 	printf("4. Buscar un producto \n");
 	printf("0. Salir \n");
 	printf("Selecciona una opción: ");

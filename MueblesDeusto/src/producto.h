@@ -32,13 +32,12 @@ typedef struct{
 
 typedef struct{
 	Producto *aProductos;
-	int tam;
 	int numProductos;
 } ListaProductos;
 
 //ADMIN
 void anadirProducto(ListaProductos *lp);
-Producto buscarProducto(ListaProductos lp);
+ListaProductos buscarProducto(ListaProductos lp, CategoriaProducto c);	//Categoria
 void modificarProducto(Producto *p);
 void eliminarProducto(Producto p, ListaProductos *lp);	//Solo lista o producto tambien?
 void modificarNombre(Producto *p);
@@ -49,8 +48,10 @@ void volcarFicheroAListaProductos(ListaProductos *lp, char *nombreFichero);
 void imprimirListaProductos (ListaProductos lp);
 
 //CLIENTE
-void devolverProducto(Producto *p);
+void devolverProducto(ListaProductos *lp, Producto nombreProducto);	//Añadir a la lista de productos de la tienda (hacer más uno en su cantidad)
 void visualizarTienda(ListaProductos lp);
+Producto nombreProductoBorrar();
+Producto nombreProductoDevolver();
 
 //Estadisticas
 

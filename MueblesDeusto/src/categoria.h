@@ -7,4 +7,8 @@ typedef enum {
    ALIMENTOS,
    HOGAR
 }CategoriaProducto;
+
+void imprimirListaCategorias();
+CategoriaProducto buscarNombreCategoria();
+
 #endif
