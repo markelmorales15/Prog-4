@@ -129,28 +129,27 @@ void imprimirListaProductos (ListaProductos lp){
 void volcarFicheroAListaProductos(ListaProductos *lp, char *nombreFichero) {
 	FILE *pf;
 	int tam;
+	char cat[200];
 	lp->numProductos = 0;
 	pf = fopen(nombreFichero, "r");
 	if (pf != (FILE*) NULL) {
 		fscanf(pf, "%d", &tam);
+		printf("TAM: %d\n",tam);fflush(stdout);
 		lp->aProductos = (Producto*) malloc(tam * sizeof(Producto));
-		while (fscanf(pf, "%s %s %s %d %lf %u",
+		while (fscanf(pf, "%s %s %s %d %f %s",
 				lp->aProductos[lp->numProductos].cod_p,
 				lp->aProductos[lp->numProductos].nombre,
 				lp->aProductos[lp->numProductos].descripcion,
 				&(lp->aProductos[lp->numProductos].cantidad),
 				&(lp->aProductos[lp->numProductos].precio),
-				&(lp->aProductos[lp->numProductos].tipo)) != EOF) {
+				cat) != EOF) {
 			lp->numProductos++;
 		}
 		fclose(pf);
 	} else{	//Si el archivo está vacío
-		free(lp->aProductos);
 		lp->aProductos = NULL;
 		return;
 	}
-	free(lp->aProductos); // Liberar memoria
-//	lp->aProductos = NULL; // Asignar un nuevo valor
 
 }
 

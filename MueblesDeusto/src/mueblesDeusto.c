@@ -9,17 +9,25 @@
 
 int main(void) {
 
-	int opcion = 10, opcion2 = 10, opcion3 = 10, opcion4 =10;
-//	int i;
-//	int clienteExiste = 0, adminExiste = 0;
-//	ListaClientes lc;
-//	ListaClientes admin;
-//	lc.numC = 0;
-//	ListaProductos lp;
-//	lp.numProductos = 0;
-//
-//	volcarFicheroAListaClientes(&lc, "Clientes.txt");
-//	volcarFicheroAListaClientes(&admin, "Administradores.txt");
+	/*
+	 * DUDAS:
+	 * 	- Fichero Productos.txt no se lee correctamente
+	 * 	- El cuarto método del menú cliente (4. Buscar un producto) no funciona
+	 */
+
+	int opcion = 10, opcion2 = 10, opcion3 = 10, opcion4 = 10;
+	int i;
+	int clienteExiste = 0, adminExiste = 0;
+	ListaClientes lc;
+	ListaClientes admin;
+	lc.numC = 0;
+	ListaProductos lp1;
+	lp1.numProductos = 0;
+
+	volcarFicheroAListaClientes(&lc, "Clientes.txt");
+	volcarFicheroAListaClientes(&admin, "Administradores.txt");
+	volcarFicheroAListaProductos(&lp1, "Productos.txt");
+	imprimirListaProductos(lp1);
 //	imprimirListaClientes(admin);
 //	imprimirListaClientes(lc);
 
@@ -88,112 +96,111 @@ int main(void) {
 //	free(carrito->aProductos);
 //	free(carrito);
 
-
 	//Escribir admins en un fichero y volcarlos. Volcar del array al fichero los clientes. y al revés.
-//	Cliente nuevoCliente;
-//	Cliente inicio;
+	Cliente nuevoCliente;
+	Cliente inicio;
 	do {
 		//Abrimos el menú de inicio
 		opcion = menuInicio();
 		switch (opcion) {
 		case 1:	//Registrase
-//			nuevoCliente = registro();//Si el usuario no existe ya en la lista de clientes
-//			//Comprobamos si el usuario ya está registrado o no
-//			for (i = 0; i < lc.numC; i++) {
-//				if (strcmp(nuevoCliente.dni, lc.aClientes[i].dni) == 0) {//Compramos el dni del cliente nuevo con el resto de nuestros clientes
-//					clienteExiste = 1;
-//					break;
-//				}
-//			}
-//			//Si el cliente ya está registrado (ya existe en la lista de clientes):
-//			if (clienteExiste) {
-//				printf("\nEl cliente ya existe en la lista. \n");
-//				fflush(stdout);
-//				//Si el cliente no existe en la lista:
-//			} else {
-//				printf("\nBienvenido a MueblesDeusto. \n");
-//				//Añadimos el cliente a la lista
-//				anadirClientesALista(&lc, nuevoCliente);
-//				volcarListaClientesAFichero(&lc, "Clientes.txt");
-//				fflush(stdout);
-//				//Llamamos al menú cliente:
-				opcion2 = menuCliente();
-//			}
-			//Si el registro es correcto:
-			switch (opcion2) {
-			case 1:
-				opcion4 = mostrarCarrito(*carrito);	//Mirar que cuando salga de una opción no vuelva al menu de inicio, tiene que volver al del cliente
-				break;
-			case 2:
-				//Imprimimos el carrito para comprobar que se ha borrado o al usuario no le interesa?
-//				imprimirCarrito(*carrito);
-//				imprimirListaProductos(*lp);
-				nombreProducto = nombreProductoDevolver();
-				devolverProducto(lp, nombreProducto);
-//				imprimirCarrito(*carrito);
-//				imprimirListaProductos(*lp);
-				break;
-			case 3:
-				imprimirListaProductos(*lp);
-				break;
-			case 4:
-//				imprimirListaCategorias();
-//				buscarProducto(*lp, ROPA);
-
-				printf("Introduce una categoria (1 - ELECTRONICA, 2 - ROPA, 3 - ALIMENTOS): ");
-				scanf("%d", &categoria);
-
-				// Buscar los productos de la categoría ingresada
-				productosCategoria = buscarProducto(*lp, categoria);
-				imprimirListaProductos(productosCategoria);
-				break;
-			case 0:	//Salir
-				printf("\nAgur! \n\n");
-				fflush(stdout);
-				break;
+			nuevoCliente = registro();//Si el usuario no existe ya en la lista de clientes
+			//Comprobamos si el usuario ya está registrado o no
+			for (i = 0; i < lc.numC; i++) {
+				if (strcmp(nuevoCliente.dni, lc.aClientes[i].dni) == 0) {//Compramos el dni del cliente nuevo con el resto de nuestros clientes
+					clienteExiste = 1;
+					break;
+				}
 			}
+			//Si el cliente ya está registrado (ya existe en la lista de clientes):
+			if (clienteExiste) {
+				printf("\nEl cliente ya existe en la lista. \n");
+				fflush(stdout);
+				//Si el cliente no existe en la lista:
+			} else {
+				printf("\nUsuario realizado con exito. \n");
+				//Añadimos el cliente a la lista
+				anadirClientesALista(&lc, nuevoCliente);
+				volcarListaClientesAFichero(&lc, "Clientes.txt");
+				fflush(stdout);
+				//Llamamos al menú cliente:
+
+			}
+			//Si el registro es correcto el usuario tiene que iniciar sesión.S
+
 			break;
 		case 2:	//Iniciar sesión
 				//Tenemos que recorrer las dos listas: admin y clientes
 				//Si el admin ya se conoce, se abre el menú de admin y si no el de cliente
-//			inicio = inicioSesion();
-//			//Comprobamos si el usuario ya está registrado o no
-//			for (i = 0; i < lc.numC; i++) {
-//				if ((strcmp(nuevoCliente.usuario, lc.aClientes[i].usuario) == 0) && (strcmp(nuevoCliente.contrasena, lc.aClientes[i].contrasena) == 0)) {//Compramos el dni del cliente nuevo con el resto de nuestros clientes
-//					clienteExiste = 1;
-//					break;
-//				}
-//				else if((strcmp(nuevoCliente.usuario, admin.aClientes[i].usuario) == 0) && (strcmp(nuevoCliente.contrasena, admin.aClientes[i].contrasena) == 0)){
-//					adminExiste = 1;
-//				}
-//			}
-//			if (clienteExiste) {
-//				printf("\n¡Bienvenido a MueblesDeusto! \n");
-//				fflush(stdout);
-//				opcion3 = menuCliente();
-//				//Si el cliente no existe en la lista:
-//			}
-//			else if(adminExiste){
-//				printf("\n¡Bienvenido a MueblesDeusto! \n");
-//				fflush(stdout);
-//				opcion3 = menuAdmin();
-//			}
-//			else {
-//				printf("\nAntes debe registrarse \n");
-//				fflush(stdout);
-//			}
+			inicio = inicioSesion();
+			//Comprobamos si el usuario ya está registrado o no
+			for (i = 0; i < lc.numC; i++) {
+				if ((strcmp(inicio.usuario, lc.aClientes[i].usuario) == 0)
+						&& (strcmp(inicio.contrasena,
+								lc.aClientes[i].contrasena) == 0)) {//Compramos el dni del cliente nuevo con el resto de nuestros clientes
+					clienteExiste = 1;
+					break;
+				}
+			}
+			if (clienteExiste) {
+				printf("\n¡Bienvenido a MueblesDeusto! \n");
+				fflush(stdout);
+				do {
+					opcion3 = menuCliente();
+					switch (opcion3) {
+					case 1:
+						opcion4 = mostrarCarrito(*carrito);	//Mirar que cuando salga de una opción no vuelva al menu de inicio, tiene que volver al del cliente
+						break;
+					case 2:
+						//Imprimimos el carrito para comprobar que se ha borrado o al usuario no le interesa?
+						imprimirCarrito(*carrito);
+						imprimirListaProductos(*lp);
+						nombreProducto = nombreProductoDevolver();
+						devolverProducto(lp, nombreProducto);
+						imprimirCarrito(*carrito);
+						imprimirListaProductos(*lp);
+						break;
+					case 3:
+						imprimirListaProductos(*lp);
+						break;
+					case 4:
+						imprimirListaCategorias();
+						buscarProducto(*lp, ROPA);
 
-			switch (opcion3) {
-			case 1:
-				break;
-			case 2:
-				break;
-			case 3:
-				break;
-			case 4:
-				break;
-			case 0:
-				break;
+						printf(
+								"Introduce una categoria (1 - ELECTRONICA, 2 - ROPA, 3 - ALIMENTOS): ");
+						scanf("%d", &categoria);
+
+						// Buscar los productos de la categoría ingresada
+						productosCategoria = buscarProducto(*lp, categoria);
+						imprimirListaProductos(productosCategoria);
+						break;
+					case 0:	//Salir
+						printf("\nAgur! \n\n");
+						fflush(stdout);
+						break;
+					}
+
+				} while (opcion3 != 0);
+				//Si el cliente no existe en la lista:
+			} else {
+
+				for (i = 0; i < admin.numC; i++) {
+					if ((strcmp(inicio.usuario, admin.aClientes[i].usuario) == 0)
+							&& (strcmp(inicio.contrasena,
+									admin.aClientes[i].contrasena) == 0)) {	//Compramos el dni del cliente nuevo con el resto de nuestros clientes
+						adminExiste = 1;
+						break;
+					}
+				}
+				if (adminExiste) {
+					printf("\n¡Bienvenido a MueblesDeusto! \n");
+					fflush(stdout);
+					opcion3 = menuAdmin();
+				} else {
+					printf("\nAntes debe registrarse \n");
+					fflush(stdout);
+				}
 			}
 			break;
 		case 0:
@@ -207,7 +214,7 @@ int main(void) {
 		}
 	} while (opcion != 0);
 
-//	liberarMemoria(&lc);
+	liberarMemoria(&lc);
 	return 0;
 
 }
