@@ -89,7 +89,7 @@ void devolverProducto(ListaProductos *lp, Producto nombreProducto){
             break;
         }
     }
-    printf("Devolucion finalizada. \n");
+    printf("\nDevolucion finalizada. \n");
 }
 
 
@@ -107,21 +107,21 @@ void visualizarTienda(ListaProductos lp){
 }
 
 void imprimirListaProductos (ListaProductos lp){
-	printf("Lista de productos de MueblesDeusto: \n");
+	printf("\nLista de productos de MueblesDeusto: \n");
 	for(int i=0; i<lp.numProductos; i++){
-		printf("PRODUCTO %d: \n", i+1);
+		printf("[PRODUCTO %d: ", i+1);
 		fflush(stdout);
-		printf("CODIGO: %s\n", lp.aProductos[i].cod_p);
+		printf("CODIGO: %s, ", lp.aProductos[i].cod_p);
 		fflush(stdout);
-		printf("NOMBRE: %s\n", lp.aProductos[i].nombre);
+		printf("NOMBRE: %s, ", lp.aProductos[i].nombre);
 		fflush(stdout);
-		printf("DESCRIPCION: %s\n", lp.aProductos[i].descripcion);
+		printf("DESCRIPCION: %s, ", lp.aProductos[i].descripcion);
 		fflush(stdout);
-		printf("CANTIDAD: %d\n", lp.aProductos[i].cantidad);
+		printf("CANTIDAD: %d, ", lp.aProductos[i].cantidad);
 		fflush(stdout);
-		printf("PRECIO: %.2f\n", lp.aProductos[i].precio);
+		printf("PRECIO: %.2f, ", lp.aProductos[i].precio);
 		fflush(stdout);
-		printf("CATEGORIA: %d\n", lp.aProductos[i].tipo);
+		printf("CATEGORIA: %]\n", lp.aProductos[i].tipo);
 		fflush(stdout);
 	}
 }
@@ -155,7 +155,7 @@ void volcarFicheroAListaProductos(ListaProductos *lp, char *nombreFichero) {
 
 Producto nombreProductoBorrar(){
     Producto p;
-    printf("¿Qué producto desea eliminar?: ");
+    printf("\n¿Qué producto desea eliminar? (introduzca el nombre del producto): ");
     fflush(stdout);
     fflush(stdin);
     fgets(p.nombre, sizeof(p.nombre), stdin);
@@ -165,7 +165,7 @@ Producto nombreProductoBorrar(){
 
 Producto nombreProductoDevolver(){
     Producto p;
-    printf("¿Qué producto desea devolver?: ");
+    printf("¿Qué producto desea devolver? (introduzca el nombre del producto): ");
     fflush(stdout);
     fflush(stdin);
     fgets(p.nombre, sizeof(p.nombre), stdin);

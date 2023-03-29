@@ -11,8 +11,11 @@ int main(void) {
 
 	/*
 	 * DUDAS:
-	 * 	- Fichero Productos.txt no se lee correctamente
-	 * 	- El cuarto método del menú cliente (4. Buscar un producto) no funciona
+	 * 	1. - Fichero Productos.txt no se lee correctamente
+	 * 	2. - El cuarto método del menú cliente (4. Buscar un producto) no funciona
+	 * 	3. - El método de borrar carrito (en carrito.c) no nos funciona bien. Si le damos a borrar y luego le damos a eliminar producto,
+	 * 		nos vuelve a salir la lista de productos y no deberia, debería de quedarse vacía.
+	 * 	4. - Cuando en el main llamamos al método devolver un producto, imprimimos el carrito para comprobar que se ha borrado o al usuario no le interesa?
 	 */
 
 	int opcion = 10, opcion2 = 10, opcion3 = 10, opcion4 = 10;
@@ -26,8 +29,8 @@ int main(void) {
 
 	volcarFicheroAListaClientes(&lc, "Clientes.txt");
 	volcarFicheroAListaClientes(&admin, "Administradores.txt");
-	volcarFicheroAListaProductos(&lp1, "Productos.txt");
-	imprimirListaProductos(lp1);
+//	volcarFicheroAListaProductos(&lp1, "Productos.txt");
+//	imprimirListaProductos(lp1);
 //	imprimirListaClientes(admin);
 //	imprimirListaClientes(lc);
 
@@ -118,7 +121,7 @@ int main(void) {
 				fflush(stdout);
 				//Si el cliente no existe en la lista:
 			} else {
-				printf("\nUsuario realizado con exito. \n");
+				printf("\nUsuario registrado con exito. \n");
 				//Añadimos el cliente a la lista
 				anadirClientesALista(&lc, nuevoCliente);
 				volcarListaClientesAFichero(&lc, "Clientes.txt");

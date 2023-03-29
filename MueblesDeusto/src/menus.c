@@ -55,11 +55,11 @@ int menuCliente(){
 
 Cliente inicioSesion(){
 	Cliente c;
-	printf("Introduce el nombre de usuario: \n");
+	printf("\nIntroduce el nombre de usuario: ");
 	fflush(stdout);
 	fflush(stdin);
 	gets(c.usuario);
-	printf("Introduce la contrasenya: \n");
+	printf("Introduce la contrasenya: ");
 	fflush(stdout);
 	fflush(stdin);
 	gets(c.contrasena);
