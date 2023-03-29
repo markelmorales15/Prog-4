@@ -7,6 +7,7 @@ int mostrarCarrito(Carrito c) {
 	Producto p;
 	imprimirCarrito(c);
 	int opcion;
+	char get[2] ="";
 
 	do {
 		printf("\n1. Comprar \n");
@@ -19,7 +20,8 @@ int mostrarCarrito(Carrito c) {
 		printf("Selecciona una opción: ");
 		fflush(stdout);
 		fflush(stdin);
-		scanf("%i", &opcion);
+		fgets(get, 2, stdin);
+		sscanf(get, "%d", &opcion);
 		switch (opcion) {
 		case 1:
 			//tenemos que vaciar el carrito
@@ -116,7 +118,7 @@ void eliminarProductoCarrito(Carrito *carrito, Producto producto) {
 			fflush(stdout);
 			fflush(stdin);
 	}else if (encontrado == 0) {
-		printf("\nEl producto que desea borrar no está en su carrito. \n");
+		printf("\nEl producto que desea eliminar no está en su carrito. \n");
 		fflush(stdout);
 		fflush(stdin);
 	}

@@ -7,8 +7,8 @@
 #include <string.h>
 #include "menus.h"
 
-
-int menuInicio(){
+int menuInicio() {
+	char get[2] = "";
 	int opcion = 0;
 	printf("\nMENÚ INICIO: \n");
 	printf("---------------------- \n");
@@ -18,11 +18,13 @@ int menuInicio(){
 	printf("Selecciona una opción: ");
 	fflush(stdout);
 	fflush(stdin);
-	scanf("%d",&opcion);
+	fgets(get, 2, stdin);
+	sscanf(get, "%d", &opcion);
 	return opcion;
 }
 
-int menuAdmin(){
+int menuAdmin() {
+	char get[2] = "";
 	int opcion = 0;
 	printf("\nMENÚ ADMIN: \n");
 	printf("---------------------- \n");
@@ -34,11 +36,13 @@ int menuAdmin(){
 	printf("Selecciona una opción: ");
 	fflush(stdout);
 	fflush(stdin);
-	scanf("%d",&opcion);
+	fgets(get, 2, stdin);
+	sscanf(get, "%d", &opcion);
 	return opcion;
 }
-int menuCliente(){
+int menuCliente() {
 	int opcion = 0;
+	char get[2] = "";
 	printf("\nMENÚ CLIENTE: \n");
 	printf("---------------------- \n");
 	printf("1. Visualizar el carrito de la compra \n");	//HECHO
@@ -49,19 +53,23 @@ int menuCliente(){
 	printf("Selecciona una opción: ");
 	fflush(stdout);
 	fflush(stdin);
-	scanf("%d",&opcion);
+	fgets(get, 2, stdin);
+	sscanf(get, "%d", &opcion);
 	return opcion;
 }
 
-Cliente inicioSesion(){
+Cliente inicioSesion() {
+	char get[2] = "";
 	Cliente c;
 	printf("\nIntroduce el nombre de usuario: ");
 	fflush(stdout);
 	fflush(stdin);
-	gets(c.usuario);
+	fgets(get, sizeof(c.usuario), stdin);
+	sscanf(get, "%s", c.usuario);
 	printf("Introduce la contrasenya: ");
 	fflush(stdout);
 	fflush(stdin);
-	gets(c.contrasena);
+	fgets(get, sizeof(c.contrasena), stdin);
+	sscanf(get, "%s", c.contrasena);
 	return c;
 }

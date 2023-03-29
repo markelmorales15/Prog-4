@@ -6,19 +6,23 @@
 #include "menus.h"
 
 Cliente registro() {
+	char get[20] = "";
 	Cliente c;
 	printf("\nIntroduce tu DNI: ");
 	fflush(stdout);
 	fflush(stdin);
-	gets(c.dni);
+	fgets(get, 20, stdin);
+	sscanf(get, "%s", c.dni);
 	printf("Introduce el nombre de usuario: ");
 	fflush(stdout);
 	fflush(stdin);
-	gets(c.usuario);
+	fgets(get, 20, stdin);
+	sscanf(get, "%s", c.usuario);
 	printf("Introduce la contrasena: ");
 	fflush(stdout);
 	fflush(stdin);
-	gets(c.contrasena);
+	fgets(get, 20, stdin);
+	sscanf(get, "%s", c.contrasena);
 	//Meter el cliente en la lista de clientes
 //	menuCliente();
 	return c;
@@ -26,17 +30,18 @@ Cliente registro() {
 }
 
 //Llamamos a esta función cada vez que vayamos a registrar a un nuevo cliente
-void anadirClientesALista(ListaClientes *lc, Cliente nuevoCliente){
-	lc->aClientes = realloc(lc->aClientes, sizeof(Cliente) * (lc->numC+1));
+void anadirClientesALista(ListaClientes *lc, Cliente nuevoCliente) {
+	lc->aClientes = realloc(lc->aClientes, sizeof(Cliente) * (lc->numC + 1));
 	lc->aClientes[lc->numC] = nuevoCliente;
 	lc->numC++;
 }
 
-void imprimirListaClientes (ListaClientes lc){
+void imprimirListaClientes(ListaClientes lc) {
 //	int i;
 	printf("Lista de clientes de MueblesDeusto: \n");
-	for(int i=0; i<lc.numC; i++){
-		printf("Cliente %d: \n", i+1);
+	fflush(stdout);
+	for (int i = 0; i < lc.numC; i++) {
+		printf("Cliente %d: \n", i + 1);
 		fflush(stdout);
 		printf("DNI: %s\n", lc.aClientes[i].dni);
 		fflush(stdout);
@@ -71,21 +76,19 @@ void volcarFicheroAListaClientes(ListaClientes *lc, char *nombreFichero) {
 
 //VOLCAMOS LA LISTA DE CLIENTES AL FICHERO "Clientes.txt"
 void volcarListaClientesAFichero(ListaClientes *lc, char *nombreFichero) {
-    FILE *pf;
-    pf = fopen(nombreFichero, "w");
-    if (pf != (FILE*) NULL) {
-        fprintf(pf, "%d\n", lc->numC); // Escribimos el número de clientes al principio del fichero
-        for (int i = 0; i < lc->numC; i++) {
-            fprintf(pf, "%s %s %s \n",
-                lc->aClientes[i].dni,
-                lc->aClientes[i].usuario,
-                lc->aClientes[i].contrasena);
-        }
-        fclose(pf);
-    }
+	FILE *pf;
+	pf = fopen(nombreFichero, "w");
+	if (pf != (FILE*) NULL) {
+		fprintf(pf, "%d\n", lc->numC); // Escribimos el número de clientes al principio del fichero
+		for (int i = 0; i < lc->numC; i++) {
+			fprintf(pf, "%s %s %s \n", lc->aClientes[i].dni,
+					lc->aClientes[i].usuario, lc->aClientes[i].contrasena);
+		}
+		fclose(pf);
+	}
 }
 
 void liberarMemoria(ListaClientes *lc) {
-    free(lc->aClientes);
+	free(lc->aClientes);
 }
 

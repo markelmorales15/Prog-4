@@ -3,5 +3,6 @@
 
 void imprimirListaCategorias() {
     printf("Categorías de productos: ELECTRONICA, ROPA, ALIMENTOS, HOGAR\n");
+    fflush(stdout);
 }
 

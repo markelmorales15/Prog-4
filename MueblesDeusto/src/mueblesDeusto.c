@@ -18,14 +18,15 @@ int main(void) {
 	 * 	4. - Cuando en el main llamamos al método devolver un producto, imprimimos el carrito para comprobar que se ha borrado o al usuario no le interesa?
 	 */
 
-	int opcion = 10, opcion2 = 10, opcion3 = 10, opcion4 = 10;
-	int i;
-	int clienteExiste = 0, adminExiste = 0;
+	int opcion = 10, opcion2 = 10, opcion3 = 10;
+//	opcion4 = 10;
+	int i, clienteExiste = 0, adminExiste = 0;
+	char get[20] = "";
 	ListaClientes lc;
 	ListaClientes admin;
 	lc.numC = 0;
-	ListaProductos lp1;
-	lp1.numProductos = 0;
+//	ListaProductos lp1;
+
 
 	volcarFicheroAListaClientes(&lc, "Clientes.txt");
 	volcarFicheroAListaClientes(&admin, "Administradores.txt");
@@ -149,10 +150,10 @@ int main(void) {
 				printf("\n¡Bienvenido a MueblesDeusto! \n");
 				fflush(stdout);
 				do {
-					opcion3 = menuCliente();
-					switch (opcion3) {
+					opcion2 = menuCliente();
+					switch (opcion2) {
 					case 1:
-						opcion4 = mostrarCarrito(*carrito);	//Mirar que cuando salga de una opción no vuelva al menu de inicio, tiene que volver al del cliente
+						opcion3 = mostrarCarrito(*carrito);	//Mirar que cuando salga de una opción no vuelva al menu de inicio, tiene que volver al del cliente
 						break;
 					case 2:
 						//Imprimimos el carrito para comprobar que se ha borrado o al usuario no le interesa?
@@ -170,9 +171,9 @@ int main(void) {
 						imprimirListaCategorias();
 						buscarProducto(*lp, ROPA);
 
-						printf(
-								"Introduce una categoria (1 - ELECTRONICA, 2 - ROPA, 3 - ALIMENTOS): ");
-						scanf("%d", &categoria);
+						printf("Introduce una categoria (1 - ELECTRONICA, 2 - ROPA, 3 - ALIMENTOS): ");
+						fgets(get, 2, stdin);
+						sscanf(get, "%s", &categoria);
 
 						// Buscar los productos de la categoría ingresada
 						productosCategoria = buscarProducto(*lp, categoria);
@@ -184,7 +185,7 @@ int main(void) {
 						break;
 					}
 
-				} while (opcion3 != 0);
+				} while (opcion2 != 0);
 				//Si el cliente no existe en la lista:
 			} else {
 
@@ -199,7 +200,7 @@ int main(void) {
 				if (adminExiste) {
 					printf("\n¡Bienvenido a MueblesDeusto! \n");
 					fflush(stdout);
-					opcion3 = menuAdmin();
+					opcion2 = menuAdmin();
 				} else {
 					printf("\nAntes debe registrarse \n");
 					fflush(stdout);
