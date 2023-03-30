@@ -27,7 +27,7 @@ typedef struct{
     char descripcion[20];
     int cantidad;
     double precio;
-    CategoriaProducto tipo;
+    int tipo;
 } Producto;
 
 typedef struct{
@@ -46,6 +46,11 @@ void modificarCantidad(Producto *p);
 void modificarPrecio(Producto *p);
 void volcarFicheroAListaProductos(ListaProductos *lp, char *nombreFichero);
 void imprimirListaProductos (ListaProductos lp);
+Producto codigoProductoBorrar();
+int nuevaCantidadProducto();
+Producto codigoProductoModificar();
+Producto codigoProductoAniadir();
+Producto anadirProductoBD();
 
 //CLIENTE
 void devolverProducto(ListaProductos *lp, Producto nombreProducto);	//Añadir a la lista de productos de la tienda (hacer más uno en su cantidad)

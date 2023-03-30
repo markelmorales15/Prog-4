@@ -6,6 +6,7 @@
 #include "menus.h"
 #include "producto.h"
 #include "carrito.h"
+#include "bbdd/consultas.h"
 
 int main(void) {
 
@@ -18,20 +19,57 @@ int main(void) {
 	 * 	4. - Cuando en el main llamamos al método devolver un producto, imprimimos el carrito para comprobar que se ha borrado o al usuario no le interesa?
 	 */
 
+	// Abrir la base de datos
+	sqlite3 *db;
+	int rc = sqlite3_open("MueblesDeusto.db", &db);
+	if (rc != SQLITE_OK) {
+		printf("Error abriendo la base de datos: %s\n", sqlite3_errmsg(db));
+		sqlite3_close(db);
+		return 1;
+	}
+
+	// Crear la tabla producto si no existe
+	crearTablaProducto("MueblesDeusto.db");
+
+	// Insertar un nuevo producto en la tabla
+	Producto nuevoProducto;
+	strcpy(nuevoProducto.cod_p, "P002");
+	strcpy(nuevoProducto.nombre, "Silla");
+	strcpy(nuevoProducto.descripcion, "Silla de madera");
+	nuevoProducto.cantidad = 10;
+	nuevoProducto.precio = 50.0;
+	nuevoProducto.tipo = 0;
+
+	// Modificar cantidad del producto con código P001 a 20
+
+//	borrarProductoBD(db, nuevoProducto.cod_p);
+//	modificarCantidadProductoBD(db, nuevoProducto.cod_p, 123);
+
+	// Cerrar la base de datos
+	sqlite3_close(db);
+
 	int opcion = 10, opcion2 = 10, opcion3 = 10;
 //	opcion4 = 10;
-	int i, clienteExiste = 0, adminExiste = 0;
+	int i, clienteExiste = 0, adminExiste = 0, cat, nuevaCantidad = 0;
 	char get[20] = "";
 	ListaClientes lc;
 	ListaClientes admin;
 	lc.numC = 0;
-//	ListaProductos lp1;
+	ListaProductos lp1;
+	ListaProductos lpb;
 
+//	Producto *producto = malloc(sizeof(Producto));
+//		strcpy(producto->cod_p, "P1234");
+//		strcpy(producto->nombre, "Leche");
+//		strcpy(producto->descripcion, "Leche desnatada");
+//		producto->cantidad = 1;
+//		producto->precio = 0.80;
+//		producto->tipo = ELECTRONICA;
 
 	volcarFicheroAListaClientes(&lc, "Clientes.txt");
 	volcarFicheroAListaClientes(&admin, "Administradores.txt");
-//	volcarFicheroAListaProductos(&lp1, "Productos.txt");
-//	imprimirListaProductos(lp1);
+	volcarFicheroAListaProductos(&lp1, "Productos.txt");
+	imprimirListaProductos(lp1);
 //	imprimirListaClientes(admin);
 //	imprimirListaClientes(lc);
 
@@ -169,14 +207,17 @@ int main(void) {
 						break;
 					case 4:
 						imprimirListaCategorias();
-						buscarProducto(*lp, ROPA);
+						lpb = buscarProducto(*lp, ROPA);
 
-						printf("Introduce una categoria (1 - ELECTRONICA, 2 - ROPA, 3 - ALIMENTOS): ");
+						printf(
+								"Introduce una categoria (1 - ELECTRONICA, 2 - ROPA, 3 - ALIMENTOS): ");
+						fflush(stdout);
+						fflush(stdin);
 						fgets(get, 2, stdin);
-						sscanf(get, "%s", &categoria);
+						sscanf(get, "%d", &cat);
 
 						// Buscar los productos de la categoría ingresada
-						productosCategoria = buscarProducto(*lp, categoria);
+						productosCategoria = buscarProducto(*lp, cat);
 						imprimirListaProductos(productosCategoria);
 						break;
 					case 0:	//Salir
@@ -200,7 +241,37 @@ int main(void) {
 				if (adminExiste) {
 					printf("\n¡Bienvenido a MueblesDeusto! \n");
 					fflush(stdout);
-					opcion2 = menuAdmin();
+					do {
+						opcion2 = menuAdmin();
+						switch (opcion2) {
+						case 1:	//Añadir producto
+							//Método para pedir el producto -- falta arreglar
+							nuevoProducto = anadirProductoBD();
+							insertarProductoBD(db, nuevoProducto);
+							break;
+						case 2:	//Modificar producto -- falta arreglarlo
+							nombreProducto = codigoProductoModificar();
+							nuevaCantidad = nuevaCantidadProducto();
+							modificarCantidadProductoBD(db, nombreProducto.cod_p, nuevaCantidad);
+							break;
+						case 3:
+							nombreProducto = codigoProductoBorrar();
+							borrarProductoBD(db, nombreProducto.cod_p);
+							break;
+						case 4: //mostrar productos -- falta arreglar
+							mostrarProductosBD(db);
+							break;
+						case 5:
+							//Estadistica
+							break;
+						case 0:	//Salir
+							printf("\nAgur! \n\n");
+							fflush(stdout);
+							break;
+						}
+
+					} while (opcion2 != 0);
+
 				} else {
 					printf("\nAntes debe registrarse \n");
 					fflush(stdout);
