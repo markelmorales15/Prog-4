@@ -31,7 +31,7 @@ int menuAdmin() {
 	printf("1. Anadir un producto \n");	//HECHO
 	printf("2. Modificar un producto \n");
 	printf("3. Eliminar un producto \n");
-	printf("4. Msotrar almacen \n");
+	printf("4. Mostrar almacen \n");
 	printf("5. Estadisticas \n");
 	printf("0. Salir \n");
 	printf("Selecciona una opción: ");

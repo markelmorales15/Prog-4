@@ -23,6 +23,7 @@ void eliminarProductoCarrito(Carrito *carrito, Producto producto);//el puntero d
 void aniadirProductoCarrito(Carrito* carrito, Producto p);
 void comprarCarrito(Carrito *c);
 void imprimirTicket (Carrito c, char *nombreFichero);
+int menuBuscar(Carrito c, ListaProductos lp);
 
 
 #endif /* CARRITO_H_ */

@@ -138,3 +138,46 @@ void comprarCarrito(Carrito *carrito) {
     carrito->importeTotal = 0.0;
 }
 
+int menuBuscar(Carrito c, ListaProductos lp){
+    int opcion;
+    char get[20] ="";
+    char codigoProd[20] = "";
+    Producto p; // Variable booleana para controlar si se ha encontrado el producto buscado
+    do {
+        printf("\n1. Comprar un producto \n");
+        fflush(stdout);
+        printf("0. Volver \n");
+        fflush(stdout);
+        fflush(stdin);
+        printf("Selecciona una opción: ");
+        fflush(stdout);
+        fflush(stdin);
+        fgets(get, sizeof(get), stdin);
+        sscanf(get, "%d", &opcion);
+        switch (opcion) {
+            case 1:
+                // Añadir un producto al carrito del cliente
+                printf("¿Qué producto de la tienda desea añadir a su carrito? (Introduzca su codigo): ");
+                fflush(stdout);
+                fflush(stdin);
+//                fgets(codigoProd, sizeof(codigoProd), stdin);
+                fgets(get, 20, stdin);
+                sscanf(get, "%s", &codigoProd);
+//                codigoProd[strcspn(codigoProd, "\n")] = 0; // Elimina el salto de línea de la entrada
+                p = buscarProd(lp, codigoProd);
+                aniadirProductoCarrito(&c, p);
+                imprimirCarrito(c);
+                break;
+            case 0:
+                printf("\nAgur! \n");
+                fflush(stdout);
+                break;
+            default:
+                printf("Error! \n");
+                fflush(stdout);
+                break;
+        }
+    } while (opcion != 0);
+    return opcion;
+}
+

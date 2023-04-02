@@ -57,6 +57,11 @@ void devolverProducto(ListaProductos *lp, Producto nombreProducto);	//Añadir a 
 void visualizarTienda(ListaProductos lp);
 Producto nombreProductoBorrar();
 Producto nombreProductoDevolver();
+int buscarProductoCategoria();
+//int copiarProductoComprar(ListaProductos lp, char *codigoBuscado, Producto *productoEncontrado);
+
+Producto buscarProd(ListaProductos lista, char *codigo);
+
 
 //Estadisticas
 

@@ -51,7 +51,6 @@ ListaProductos buscarProducto(ListaProductos lp, CategoriaProducto c) {
 	lpCategoria.aProductos = (Producto*) malloc(
 			lp.numProductos * sizeof(Producto));
 	for (int i = 0; i < lp.numProductos; i++) {
-		printf("%d %d\n", lp.aProductos[i].tipo, c);
 		if (lp.aProductos[i].tipo == c) {
 			lpCategoria.aProductos[lpCategoria.numProductos++] =
 					lp.aProductos[i];
@@ -266,3 +265,41 @@ Producto anadirProductoBD() {
 //	gets(p.tipo);
 	return p;
 }
+int buscarProductoCategoria(){
+	int opcion;
+
+	return opcion;
+}
+
+
+
+//int copiarProductoComprar(ListaProductos lp, char *codigoBuscado, Producto *productoEncontrado){
+//    int i;
+//    for (i = 0; i < lp.numProductos; i++) {
+//        if (strcmp(codigoBuscado, lp.aProductos[i].cod_p) == 0) {
+//            // Copia los valores del producto encontrado en el puntero productoEncontrado
+//            strcpy(productoEncontrado->cod_p, lp.aProductos[i].cod_p);
+//            strcpy(productoEncontrado->nombre, lp.aProductos[i].nombre);
+//            strcpy(productoEncontrado->descripcion, lp.aProductos[i].descripcion);
+//            productoEncontrado->cantidad = lp.aProductos[i].cantidad;
+//            productoEncontrado->precio = lp.aProductos[i].precio;
+//            productoEncontrado->tipo = lp.aProductos[i].tipo;
+//            return 1; // Devuelve 1 para indicar que se ha encontrado el producto buscado
+//        }
+//    }
+//    // Si no se encuentra el producto, se muestra un mensaje de error
+//    printf("No existe un producto con ese código. \n");
+//    fflush(stdout);
+//    return 0; // Devuelve 0 para indicar que no se ha encontrado el producto buscado
+//}
+
+Producto buscarProd(ListaProductos lista, char *codigo){
+    for(int i=0; i<lista.numProductos; i++){
+        if(strcmp(lista.aProductos[i].cod_p, codigo) == 0){
+            return lista.aProductos[i];
+        }
+    }
+    Producto producto_vacio = {"", "", "", 0, 0.0, 0}; // Devuelve un producto vacío si no se encuentra el producto buscado
+    return producto_vacio;
+}
+

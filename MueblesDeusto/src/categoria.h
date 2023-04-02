@@ -2,13 +2,12 @@
 #define CATEGORIA_H_
 
 typedef enum {
-   ELECTRONICA = 0,
-   ROPA = 1,
-   ALIMENTOS = 2,
-   HOGAR = 3
+   MESAS = 0,
+   SILLAS = 1,
+   SOFAS = 2,
 }CategoriaProducto;
 
-void imprimirListaCategorias();
+int imprimirListaCategorias();
 CategoriaProducto buscarNombreCategoria();
 
 #endif

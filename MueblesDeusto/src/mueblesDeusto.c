@@ -15,7 +15,7 @@ int main(void) {
 	 * 	1. - Fichero Productos.txt no se lee correctamente
 	 * 	2. - El cuarto método del menú cliente (4. Buscar un producto) no funciona
 	 * 	3. - El método de borrar carrito (en carrito.c) no nos funciona bien. Si le damos a borrar y luego le damos a eliminar producto,
-	 * 		nos vuelve a salir la lista de productos y no deberia, debería de quedarse vacía.
+	 * 		nos vuelve a salir la lista de productos y no deberia, deber	ía de quedarse vacía.
 	 * 	4. - Cuando en el main llamamos al método devolver un producto, imprimimos el carrito para comprobar que se ha borrado o al usuario no le interesa?
 	 */
 
@@ -30,7 +30,6 @@ int main(void) {
 
 	// Crear la tabla producto si no existe
 	crearTablaProducto("MueblesDeusto.db");
-
 
 	ListaProductos productosBD;
 	volcarFicheroAListaProductos(&productosBD, "Productos.txt");
@@ -52,11 +51,10 @@ int main(void) {
 //	borrarProductoBD(db, nuevoProducto.cod_p);
 //	modificarCantidadProductoBD(db, nuevoProducto.cod_p, 123);
 
-	// Cerrar la base de datos
+// Cerrar la base de datos
 	sqlite3_close(db);
 
-	int opcion = 10, opcion2 = 10, opcion3 = 10;
-//	opcion4 = 10;
+	int opcion = 10, opcion2 = 10, opcion3 = 10, opcion4 = 10;
 	int i, clienteExiste = 0, adminExiste = 0, cat, nuevaCantidad = 0;
 	char get[20] = "";
 	ListaClientes lc;
@@ -196,9 +194,14 @@ int main(void) {
 				fflush(stdout);
 				do {
 					opcion2 = menuCliente();
+					Carrito *carritocliente = malloc(sizeof(Carrito));
+					carritocliente->aProductos = NULL;
+					carritocliente->numProductos = 0; // Actualizar el número total de productos
+					strcpy(carritocliente->dni, inicio.dni);
+					carritocliente->importeTotal = 0;
 					switch (opcion2) {
 					case 1:
-						opcion3 = mostrarCarrito(*carrito);	//Mirar que cuando salga de una opción no vuelva al menu de inicio, tiene que volver al del cliente
+						opcion3 = mostrarCarrito(*carritocliente);	//Mirar que cuando salga de una opción no vuelva al menu de inicio, tiene que volver al del cliente
 						break;
 					case 2:
 						//Imprimimos el carrito para comprobar que se ha borrado o al usuario no le interesa?
@@ -213,19 +216,10 @@ int main(void) {
 						imprimirListaProductos(*lp);
 						break;
 					case 4:
-						imprimirListaCategorias();
-						lpb = buscarProducto(*lp, ROPA);
-
-						printf(
-								"Introduce una categoria (1 - ELECTRONICA, 2 - ROPA, 3 - ALIMENTOS): ");
-						fflush(stdout);
-						fflush(stdin);
-						fgets(get, 2, stdin);
-						sscanf(get, "%d", &cat);
-
-						// Buscar los productos de la categoría ingresada
+						cat = imprimirListaCategorias();
 						productosCategoria = buscarProducto(*lp, cat);
 						imprimirListaProductos(productosCategoria);
+						opcion4 = menuBuscar(*carritocliente, lp1);
 						break;
 					case 0:	//Salir
 						printf("\nAgur! \n\n");
@@ -260,7 +254,8 @@ int main(void) {
 						case 2:	//Modificar producto -- falta arreglarlo
 							nombreProducto = codigoProductoModificar();
 							nuevaCantidad = nuevaCantidadProducto();
-							modificarCantidadProductoBD(db, nombreProducto.cod_p, nuevaCantidad);
+							modificarCantidadProductoBD(db,
+									nombreProducto.cod_p, nuevaCantidad);
 							break;
 						case 3:
 							nombreProducto = codigoProductoBorrar();
