@@ -26,6 +26,7 @@ int mostrarCarrito(Carrito c) {
 		case 1:
 			//tenemos que vaciar el carrito
 			imprimirTicket(c, "Ticket");//Cambiar el nombre para cada cliente
+			comprarCarrito(&c);
 			printf("\nLa compra se ha realizado con éxito y su ticket de la compra ha sido generado.\n");
 			break;
 		case 2:
@@ -69,13 +70,7 @@ void imprimirTicket(Carrito c, char *nombreFichero) {
 		return;
 	}
 
-	// Escribir cabecera del ticket
-//    time_t t = time(NULL);
-//    struct tm tm = *localtime(&t);
 	fprintf(f, "TICKET DE COMPRA\n");
-//    fprintf(f, "Fecha: %02d/%02d/%04d %02d:%02d:%02d\n",
-//            tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900,
-//            tm.tm_hour, tm.tm_min, tm.tm_sec);
 	fprintf(f, "Cliente: %s\n", c.dni);
 	fprintf(f, "-----------------------------\n");
 
@@ -180,4 +175,27 @@ int menuBuscar(Carrito c, ListaProductos lp){
     } while (opcion != 0);
     return opcion;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

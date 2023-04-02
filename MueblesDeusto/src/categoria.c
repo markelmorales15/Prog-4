@@ -12,3 +12,16 @@ int imprimirListaCategorias() {
 	return categoria;
 }
 
+
+const char* obtenerNombreCategoria(CategoriaProducto categoria) {
+    switch (categoria) {
+        case MESAS:
+            return "MESAS";
+        case SILLAS:
+            return "SILLAS";
+        case SOFAS:
+            return "SOFAS";
+        default:
+            return "DESCONOCIDO";
+    }
+}

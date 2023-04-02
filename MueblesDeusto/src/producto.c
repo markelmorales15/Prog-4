@@ -133,7 +133,8 @@ void imprimirListaProductos(ListaProductos lp) {
 		fflush(stdout);
 		printf("PRECIO: %.2f, ", lp.aProductos[i].precio);
 		fflush(stdout);
-		printf("CATEGORIA: %d]\n", lp.aProductos[i].tipo);
+		printf("CATEGORIA: %s]\n",
+				obtenerNombreCategoria(lp.aProductos[i].tipo));
 		fflush(stdout);
 	}
 }
@@ -203,25 +204,26 @@ Producto codigoProductoBorrar() {
 }
 
 int nuevaCantidadProducto() {
-    int nuevaCantidad;
-    char get[1000] = "";
-    printf("Introduce la nueva cantidad del producto: ");
-    fflush(stdout);
-    fflush(stdin);
-    fgets(get, 1000, stdin);
-    sscanf(get, "%d", &nuevaCantidad);
-    return nuevaCantidad;
+	int nuevaCantidad;
+	char get[1000] = "";
+	printf("Introduce la nueva cantidad del producto: ");
+	fflush(stdout);
+	fflush(stdin);
+	fgets(get, 1000, stdin);
+	sscanf(get, "%d", &nuevaCantidad);
+	return nuevaCantidad;
 }
 
 Producto codigoProductoModificar() {
-    char get[20] = "";
-    Producto p;
-    printf("\n¿Qué producto desea modificar? (introduzca el código del producto): ");
-    fflush(stdout);
-    fflush(stdin);
-    fgets(get, 20, stdin);
-    sscanf(get, "%s", p.cod_p);
-    return p;
+	char get[20] = "";
+	Producto p;
+	printf(
+			"\n¿Qué producto desea modificar? (introduzca el código del producto): ");
+	fflush(stdout);
+	fflush(stdin);
+	fgets(get, 20, stdin);
+	sscanf(get, "%s", p.cod_p);
+	return p;
 }
 
 Producto anadirProductoBD() {
@@ -258,20 +260,16 @@ Producto anadirProductoBD() {
 	fflush(stdout);
 	fflush(stdin);
 	fgets(get, 20, stdin);
-	int tipo;
 	sscanf(get, "%d", &p.tipo);
-	p.tipo = (CategoriaProducto) tipo;
 
 //	gets(p.tipo);
 	return p;
 }
-int buscarProductoCategoria(){
+int buscarProductoCategoria() {
 	int opcion;
 
 	return opcion;
 }
-
-
 
 //int copiarProductoComprar(ListaProductos lp, char *codigoBuscado, Producto *productoEncontrado){
 //    int i;
@@ -293,13 +291,12 @@ int buscarProductoCategoria(){
 //    return 0; // Devuelve 0 para indicar que no se ha encontrado el producto buscado
 //}
 
-Producto buscarProd(ListaProductos lista, char *codigo){
-    for(int i=0; i<lista.numProductos; i++){
-        if(strcmp(lista.aProductos[i].cod_p, codigo) == 0){
-            return lista.aProductos[i];
-        }
-    }
-    Producto producto_vacio = {"", "", "", 0, 0.0, 0}; // Devuelve un producto vacío si no se encuentra el producto buscado
-    return producto_vacio;
+Producto buscarProd(ListaProductos lista, char *codigo) {
+	for (int i = 0; i < lista.numProductos; i++) {
+		if (strcmp(lista.aProductos[i].cod_p, codigo) == 0) {
+			return lista.aProductos[i];
+		}
+	}
+	Producto producto_vacio = { "", "", "", 0, 0.0, 0 }; // Devuelve un producto vacío si no se encuentra el producto buscado
+	return producto_vacio;
 }
-
