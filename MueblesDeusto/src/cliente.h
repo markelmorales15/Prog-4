@@ -29,5 +29,6 @@ void imprimirListaClientes (ListaClientes lc);
 void volcarFicheroAListaClientes(ListaClientes *lc, char *nombreFichero);
 void volcarListaClientesAFichero(ListaClientes *lc, char *nombreFichero);
 void liberarMemoria(ListaClientes *lc);
+char* buscarDniUsuario(ListaClientes lista, char* nombreUsuario);
 
 #endif /* CLIENTE_H_ */

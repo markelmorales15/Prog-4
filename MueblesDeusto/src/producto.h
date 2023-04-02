@@ -59,7 +59,8 @@ Producto nombreProductoBorrar();
 Producto nombreProductoDevolver();
 int buscarProductoCategoria();
 //int copiarProductoComprar(ListaProductos lp, char *codigoBuscado, Producto *productoEncontrado);
-
+//void borrarProductoFichero(char *codigo, char *nombreFichero, ListaProductos *lista);
+//ListaProductos agregarProductoLista(ListaProductos lista, Producto p);
 Producto buscarProd(ListaProductos lista, char *codigo);
 
 

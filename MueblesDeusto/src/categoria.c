@@ -4,7 +4,7 @@
 int imprimirListaCategorias() {
 	int categoria;
 	char get[2] ="";
-	printf("Introduce una categoria (1 - MESAS, 2 - SILLAS, 3 - SOFAS): ");
+	printf("Introduce una categoria (0 - MESAS, 1 - SILLAS, 2 - SOFAS): ");
 	fflush(stdout);
 	fflush(stdin);
 	fgets(get, 2, stdin);

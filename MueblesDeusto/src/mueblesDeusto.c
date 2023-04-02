@@ -34,9 +34,10 @@ int main(void) {
 	ListaProductos productosFichero;
 	ListaProductos productosBD;
 	volcarFicheroAListaProductos(&productosFichero, "Productos.txt");
-	sqlite3_close(db);
-	volcarProductosBDALista(db, &productosBD);
-	sqlite3_close(db);
+//	sqlite3_open("MueblesDeusto.db", &db);
+//	volcarProductosBDALista(db, &productosBD);
+	volcarListaProductosABD(db, &productosFichero);
+//	sqlite3_close(db);
 	imprimirListaProductos(productosBD);
 //	mostrarProductosBD(db);
 
@@ -61,13 +62,13 @@ int main(void) {
 
 	int opcion = 10, opcion2 = 10, opcion3 = 10, opcion4 = 10;
 	int i, clienteExiste = 0, adminExiste = 0, cat, nuevaCantidad = 0;
-	char get[20] = "";
+//	char get[20] = "";
 	ListaClientes lc;
 	ListaClientes admin;
 	lc.numC = 0;
 	ListaProductos lp1;
-	ListaProductos lpb;
-	char seguro[3] = "";
+//	ListaProductos lpb;
+//	char seguro[3] = "";
 
 //	Producto *producto = malloc(sizeof(Prosducto));
 //		strcpy(producto->cod_p, "P1234");
@@ -103,7 +104,7 @@ int main(void) {
 	strcpy(cliente.contrasena, "contrasena1");
 
 	Producto nombreProducto;
-	CategoriaProducto categoria;
+//	CategoriaProducto categoria;
 	ListaProductos productosCategoria;
 
 	Producto *producto = malloc(sizeof(Producto));
@@ -152,6 +153,9 @@ int main(void) {
 	//Escribir admins en un fichero y volcarlos. Volcar del array al fichero los clientes. y al revés.
 	Cliente nuevoCliente;
 	Cliente inicio;
+//	inicio.contrasena = "";
+//	inicio.contrasena = "";
+//	inicio.dni = "";
 	do {
 		//Abrimos el menú de inicio
 		opcion = menuInicio();
@@ -191,6 +195,8 @@ int main(void) {
 				if ((strcmp(inicio.usuario, lc.aClientes[i].usuario) == 0)
 						&& (strcmp(inicio.contrasena,
 								lc.aClientes[i].contrasena) == 0)) {//Compramos el dni del cliente nuevo con el resto de nuestros clientes
+//					printf(inicio.usuario);
+//					fflush(stdout);
 					clienteExiste = 1;
 					break;
 				}
@@ -198,6 +204,8 @@ int main(void) {
 			if (clienteExiste) {
 				printf("\n¡Bienvenido a MueblesDeusto! \n");
 				fflush(stdout);
+				strcpy(inicio.dni, buscarDniUsuario(lc, inicio.usuario));
+
 				do {
 					opcion2 = menuCliente();
 					Carrito *carritocliente = malloc(sizeof(Carrito));
@@ -211,11 +219,11 @@ int main(void) {
 						break;
 					case 2:
 						//Imprimimos el carrito para comprobar que se ha borrado o al usuario no le interesa?
-						imprimirCarrito(*carrito);
+						imprimirCarrito(*carritocliente);
 						imprimirListaProductos(*lp);
 						nombreProducto = nombreProductoDevolver();
 						devolverProducto(lp, nombreProducto);
-						imprimirCarrito(*carrito);
+						imprimirCarrito(*carritocliente);
 						imprimirListaProductos(*lp);
 						break;
 					case 3:
@@ -282,6 +290,7 @@ int main(void) {
 
 							borrarProductoBD(db, nombreProducto.cod_p);
 							sqlite3_close(db);
+//							borrarProductoFichero(nombreProducto.cod_p,"Productos.txt", &lp1);
 //							}
 							break;
 						case 4: //mostrar productos -- falta arreglar

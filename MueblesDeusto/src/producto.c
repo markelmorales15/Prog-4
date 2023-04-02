@@ -292,11 +292,82 @@ int buscarProductoCategoria() {
 //}
 
 Producto buscarProd(ListaProductos lista, char *codigo) {
+	Producto p;
 	for (int i = 0; i < lista.numProductos; i++) {
 		if (strcmp(lista.aProductos[i].cod_p, codigo) == 0) {
-			return lista.aProductos[i];
+//			return lista.aProductos[i];
+			strcpy(p.cod_p, lista.aProductos[i].cod_p);
+			strcpy(p.nombre, lista.aProductos[i].nombre);
+			strcpy(p.descripcion, lista.aProductos[i].descripcion);
+			p.cantidad = lista.aProductos[i].cantidad;
+			p.precio = lista.aProductos[i].precio;
+			p.tipo = lista.aProductos[i].tipo;
 		}
 	}
-	Producto producto_vacio = { "", "", "", 0, 0.0, 0 }; // Devuelve un producto vacío si no se encuentra el producto buscado
-	return producto_vacio;
+	return p;
 }
+
+//ListaProductos agregarProductoLista(ListaProductos lista, Producto p) {
+//    // Reallocar la memoria para aProductos
+//    lista.aProductos = realloc(lista.aProductos, (lista.numProductos+1)*sizeof(Producto));
+//    if (lista.aProductos == NULL) {
+//        fprintf(stderr, "Error al reallocar memoria para lista.aProductos\n");
+//        exit(1);
+//    }
+//
+//    // Agregar el nuevo producto al final de la lista
+//    lista.aProductos[lista.numProductos] = p;
+//    lista.numProductos++;
+//
+//    return lista;
+//}
+//
+//
+//
+//void borrarProductoFichero(char *codigo, char *nombreFichero, ListaProductos *lista) {
+//    FILE *f = fopen(nombreFichero, "r");
+//    if (f == NULL) {
+//        printf("Error abriendo el archivo\n");
+//        return;
+//    }
+//
+//    int numProductos;
+//    fscanf(f, "%d", &numProductos);
+//
+//    // Búsqueda del producto en el archivo
+//    int encontrado = 0;
+//    for (int i = 0; i < numProductos; i++) {
+//        Producto p;
+//        fscanf(f, "%s %s %s %d %lf %d", p.cod_p, p.nombre, p.descripcion, &p.cantidad, &p.precio, &p.tipo);
+//        if (strcmp(p.cod_p, codigo) == 0) {
+//            encontrado = 1;
+//        } else {
+//        	agregarProductoLista(p, lista);
+//        }
+//    }
+//
+//    fclose(f);
+//
+//    if (!encontrado) {
+//        printf("No se ha encontrado el producto con el código %s\n", codigo);
+//        return;
+//    }
+//
+//    // Volcar la lista actualizada al archivo
+//    f = fopen(nombreFichero, "w");
+//    if (f == NULL) {
+//        printf("Error abriendo el archivo\n");
+//        return;
+//    }
+//
+//    fprintf(f, "%d\n", lista->numProductos);
+//    for (int i = 0; i < lista->numProductos; i++) {
+//        Producto p = lista->aProductos[i];
+//        fprintf(f, "%s %s %s %d %lf %d\n", p.cod_p, p.nombre, p.descripcion, p.cantidad, p.precio, p.tipo);
+//    }
+//
+//    fclose(f);
+//
+//    printf("El producto con el código %s ha sido eliminado del archivo %s\n", codigo, nombreFichero);
+//}
+//

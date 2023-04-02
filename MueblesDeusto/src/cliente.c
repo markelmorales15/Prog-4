@@ -88,6 +88,19 @@ void volcarListaClientesAFichero(ListaClientes *lc, char *nombreFichero) {
 	}
 }
 
+char* buscarDniUsuario(ListaClientes lista, char* nombreUsuario) {
+    // Recorrer la lista de usuarios
+    for (int i = 0; i < lista.numC; i++) {
+        // Comprobar si el nombre de usuario coincide
+        if (strcmp(lista.aClientes[i].usuario, nombreUsuario) == 0) {
+            // Devolver el dni correspondiente
+            return lista.aClientes[i].dni;
+        }
+    }
+    // Si no se encuentra el usuario, devolver NULL
+    return NULL;
+}
+
 void liberarMemoria(ListaClientes *lc) {
 	free(lc->aClientes);
 }

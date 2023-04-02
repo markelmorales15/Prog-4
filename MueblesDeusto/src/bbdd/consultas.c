@@ -147,6 +147,9 @@ int borrarProductoBD(sqlite3 *db, char *cod_p) {
 		fprintf(stderr, "Error al borrar el producto %s: %s\n", cod_p, errMsg);
 		sqlite3_free(errMsg);
 		return 1;
+	} else {
+		printf("\nProducto borrado correctamente de la BD de la tienda.\n");
+		fflush(stdout);
 	}
 
 	return 0;
@@ -198,38 +201,65 @@ int borrarProductoBD(sqlite3 *db, char *cod_p) {
 //    return 0;
 //}
 
-void volcarProductosBDALista(sqlite3 *db, ListaProductos *lista) {
-	char sql[] = "SELECT * FROM producto";
-	int result;
-	sqlite3_stmt *stmt;
-	lista->numProductos = 0;
+//void volcarProductosBDALista(sqlite3 *db, ListaProductos *lista) {
+//	char sql[] = "SELECT * FROM producto";
+//	int result;
+//	sqlite3_stmt *stmt;
+//	lista->numProductos = 0;
+//
+//	sqlite3_prepare_v2(db, sql, strlen(sql), &stmt, 0);
+//	do {
+//			result = sqlite3_step(stmt) ;
+//			if (result == SQLITE_ROW) {
+//				Producto p;
+//				strcpy(p.cod_p,sqlite3_column_text(stmt, 0));
+//				strcpy(p.nombre,sqlite3_column_text(stmt, 1));
+//				strcpy(p.descripcion,sqlite3_column_text(stmt, 2));
+//				p.cantidad=sqlite3_column_int(stmt, 3);
+//				p.precio=sqlite3_column_double(stmt, 4);
+//				p.tipo=sqlite3_column_int(stmt, 5);
+//
+//				strcpy(lista->aProductos[lista->numProductos].cod_p,(char *)sqlite3_column_text(stmt, 0));
+//				strcpy(lista->aProductos[lista->numProductos].nombre,(char *)sqlite3_column_text(stmt, 1));
+//				strcpy(lista->aProductos[lista->numProductos].descripcion,(char *)sqlite3_column_text(stmt, 2));
+//				lista->aProductos[lista->numProductos].cantidad=p.cantidad;
+//				lista->aProductos[lista->numProductos].precio=p.precio;
+//				lista->aProductos[lista->numProductos].tipo=p.tipo;
+//
+//				lista->numProductos++;
+//			}
+//		} while (result == SQLITE_ROW);
+//
+//		sqlite3_finalize(stmt);
+//
+//}
 
-	sqlite3_prepare_v2(db, sql, strlen(sql), &stmt, NULL);
-	do {
-			result = sqlite3_step(stmt) ;
-			if (result == SQLITE_ROW) {
-				Producto p;
-				strcpy(p.cod_p,sqlite3_column_text(stmt, 0));
-				strcpy(p.nombre,sqlite3_column_text(stmt, 1));
-				strcpy(p.descripcion,sqlite3_column_text(stmt, 2));
-				p.cantidad=sqlite3_column_int(stmt, 3);
-				p.precio=sqlite3_column_double(stmt, 4);
-				p.tipo=sqlite3_column_int(stmt, 5);
+void volcarListaProductosABD(sqlite3 *db, ListaProductos *lista) {
+    char sql[] = "INSERT INTO producto (cod_p, nombre, descripcion, cantidad, precio, tipo) VALUES (?, ?, ?, ?, ?, ?)";
+    int result;
+    sqlite3_stmt *stmt;
 
-				strcpy(lista->aProductos[lista->numProductos].cod_p,(char *)sqlite3_column_text(stmt, 0));
-				strcpy(lista->aProductos[lista->numProductos].nombre,(char *)sqlite3_column_text(stmt, 1));
-				strcpy(lista->aProductos[lista->numProductos].descripcion,(char *)sqlite3_column_text(stmt, 2));
-				lista->aProductos[lista->numProductos].cantidad=p.cantidad;
-				lista->aProductos[lista->numProductos].precio=p.precio;
-				lista->aProductos[lista->numProductos].tipo=p.tipo;
+    for (int i = 0; i < lista->numProductos; i++) {
+        sqlite3_prepare_v2(db, sql, strlen(sql), &stmt, NULL);
+        sqlite3_bind_text(stmt, 1, lista->aProductos[i].cod_p, strlen(lista->aProductos[i].cod_p), SQLITE_TRANSIENT);
+        sqlite3_bind_text(stmt, 2, lista->aProductos[i].nombre, strlen(lista->aProductos[i].nombre), SQLITE_TRANSIENT);
+        sqlite3_bind_text(stmt, 3, lista->aProductos[i].descripcion, strlen(lista->aProductos[i].descripcion), SQLITE_TRANSIENT);
+        sqlite3_bind_int(stmt, 4, lista->aProductos[i].cantidad);
+        sqlite3_bind_double(stmt, 5, lista->aProductos[i].precio);
+        sqlite3_bind_int(stmt, 6, lista->aProductos[i].tipo);
 
-				lista->numProductos++;
-			}
-		} while (result == SQLITE_ROW);
+        result = sqlite3_step(stmt);
+        if (result != SQLITE_DONE) {
+            printf("Error insertando producto: %s\n", sqlite3_errmsg(db));
+            sqlite3_finalize(stmt);
+            return;
+        }
 
-		sqlite3_finalize(stmt);
-
+        sqlite3_finalize(stmt);
+    }
 }
+
+
 
 int buscarProductoCaro(sqlite3 *db) {
 	char sql[] = "SELECT * FROM producto ORDER BY precio DESC LIMIT 1";
