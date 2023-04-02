@@ -147,7 +147,6 @@ void volcarFicheroAListaProductos(ListaProductos *lp, char *nombreFichero) {
 	pf = fopen(nombreFichero, "r");
 	if (pf != (FILE*) NULL) {
 		fscanf(pf, "%d", &tam);
-		printf("TAM: %d\n", tam);
 		fflush(stdout);
 		lp->aProductos = (Producto*) malloc(tam * sizeof(Producto));
 		while (fscanf(pf, "%s%s%s%d%lf%d",
@@ -205,26 +204,25 @@ Producto codigoProductoBorrar() {
 }
 
 int nuevaCantidadProducto() {
-	int nuevaCantidad;
-	char get[1000] = "";
-	printf("Introduce la nueva cantidad del producto: ");
-	fflush(stdout);
-	fflush(stdin);
-	fgets(get, 1000, stdin);
-	sscanf(get, "%d", &nuevaCantidad);
-	return nuevaCantidad;
+    int nuevaCantidad;
+    char get[1000] = "";
+    printf("Introduce la nueva cantidad del producto: ");
+    fflush(stdout);
+    fflush(stdin);
+    fgets(get, 1000, stdin);
+    sscanf(get, "%d", &nuevaCantidad);
+    return nuevaCantidad;
 }
 
 Producto codigoProductoModificar() {
-	char get[20] = "";
-	Producto p;
-	printf(
-			"\n¿Qué producto desea modificar? (introduzca el código del producto): ");
-	fflush(stdout);
-	fflush(stdin);
-	fgets(get, 20, stdin);
-	sscanf(get, "%s", p.cod_p);
-	return p;
+    char get[20] = "";
+    Producto p;
+    printf("\n¿Qué producto desea modificar? (introduzca el código del producto): ");
+    fflush(stdout);
+    fflush(stdin);
+    fgets(get, 20, stdin);
+    sscanf(get, "%s", p.cod_p);
+    return p;
 }
 
 Producto anadirProductoBD() {
@@ -240,7 +238,7 @@ Producto anadirProductoBD() {
 	fflush(stdin);
 	fgets(get, 20, stdin);
 	sscanf(get, "%s", p.nombre);
-	printf("Nombre: \n");
+	printf("Descripcion: \n");
 	fflush(stdout);
 	fflush(stdin);
 	fgets(get, 20, stdin);
@@ -258,8 +256,13 @@ Producto anadirProductoBD() {
 	//Categoria -- enum??
 	printf("Categoria: \n"); //Podemos imprimir el enum con un numero asociado a cada uno y en función de su resultado, le pedimos el numero
 	//Y le asignamos la categoria
+	fflush(stdout);
+	fflush(stdin);
 	fgets(get, 20, stdin);
-	sscanf(get, "%lf", &p.tipo);
+	int tipo;
+	sscanf(get, "%d", &p.tipo);
+	p.tipo = (CategoriaProducto) tipo;
+
 //	gets(p.tipo);
 	return p;
 }

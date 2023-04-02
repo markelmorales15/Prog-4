@@ -31,6 +31,13 @@ int main(void) {
 	// Crear la tabla producto si no existe
 	crearTablaProducto("MueblesDeusto.db");
 
+
+	ListaProductos productosBD;
+	volcarFicheroAListaProductos(&productosBD, "Productos.txt");
+//	volcarListaProductosABD(db, &productosBD);
+	mostrarProductosBD(db);
+
+	obtenerProductosBD(db, &productosBD);
 	// Insertar un nuevo producto en la tabla
 	Producto nuevoProducto;
 	strcpy(nuevoProducto.cod_p, "P002");
@@ -245,8 +252,9 @@ int main(void) {
 						opcion2 = menuAdmin();
 						switch (opcion2) {
 						case 1:	//Añadir producto
-							//Método para pedir el producto -- falta arreglar
+							//Método para pedir el producto
 							nuevoProducto = anadirProductoBD();
+							sqlite3_open("MueblesDeusto.db", &db);
 							insertarProductoBD(db, nuevoProducto);
 							break;
 						case 2:	//Modificar producto -- falta arreglarlo
@@ -256,6 +264,7 @@ int main(void) {
 							break;
 						case 3:
 							nombreProducto = codigoProductoBorrar();
+//							printf(nombreProducto.cod_p);
 							borrarProductoBD(db, nombreProducto.cod_p);
 							break;
 						case 4: //mostrar productos -- falta arreglar

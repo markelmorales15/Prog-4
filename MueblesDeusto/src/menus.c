@@ -28,7 +28,7 @@ int menuAdmin() {
 	int opcion = 0;
 	printf("\nMENÚ ADMIN: \n");
 	printf("---------------------- \n");
-	printf("1. Anadir un producto \n");
+	printf("1. Anadir un producto \n");	//HECHO
 	printf("2. Modificar un producto \n");
 	printf("3. Eliminar un producto \n");
 	printf("4. Msotrar almacen \n");
@@ -41,7 +41,7 @@ int menuAdmin() {
 	sscanf(get, "%d", &opcion);
 	return opcion;
 }
-int menuCliente() {
+int menuCliente() {	//HECHO
 	int opcion = 0;
 	char get[2] = "";
 	printf("\nMENÚ CLIENTE: \n");
@@ -49,8 +49,8 @@ int menuCliente() {
 	printf("1. Visualizar el carrito de la compra \n");	//HECHO
 	printf("2. Devolver un producto \n"); //HECHO
 	printf("3. Visualizar los productos de la tienda \n"); //HECHO
-	printf("4. Buscar un producto \n");
-	printf("0. Salir \n");
+	printf("4. Buscar un producto \n");	//HECHO
+	printf("0. Salir \n");	//HECHO
 	printf("Selecciona una opción: ");
 	fflush(stdout);
 	fflush(stdin);
