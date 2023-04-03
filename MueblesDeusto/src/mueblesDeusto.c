@@ -62,6 +62,7 @@ int main(void) {
 
 	int opcion = 10, opcion2 = 10, opcion3 = 10, opcion4 = 10;
 	int i, clienteExiste = 0, adminExiste = 0, cat, nuevaCantidad = 0;
+	int resultado = 0;
 	char get[20] = "";
 //	char respuesta[20] = "";
 	ListaClientes lc;
@@ -216,7 +217,7 @@ int main(void) {
 					carritocliente->importeTotal = 0;
 					switch (opcion2) {
 					case 1:
-						opcion3 = mostrarCarrito(*carritocliente);	//Mirar que cuando salga de una opción no vuelva al menu de inicio, tiene que volver al del cliente
+						opcion3 = mostrarCarrito(*carritocliente);//Mirar que cuando salga de una opción no vuelva al menu de inicio, tiene que volver al del cliente
 						break;
 					case 2:
 						//Imprimimos el carrito para comprobar que se ha borrado o al usuario no le interesa?
@@ -272,37 +273,37 @@ int main(void) {
 							break;
 						case 2:	//Modificar producto -- falta arreglarlo
 							imprimirListaProductos(lp1);
-//							printf(
-//									"Estás seguro de querer modificar un producto?(s/n): \n");
-//							fflush(stdout);
-//							fgets(get, 20, stdin);
-//							sscanf(get, "%s", respuesta);
-//							if (strcpy(respuesta, "s") == 0) {
+							printf(
+									"Estás seguro de querer modificar un producto?(si: 1, no: 0): \n");
+							fflush(stdout);
+							fflush(stdin);
+							fgets(get, sizeof(get), stdin);
+							sscanf(get, "%d", &resultado);
+							if (resultado == 1) {
 								nombreProducto = codigoProductoModificar();
 								nuevaCantidad = nuevaCantidadProducto();
 								sqlite3_open("MueblesDeusto.db", &db);
 								modificarCantidadProductoBD(db,
 										nombreProducto.cod_p, nuevaCantidad);
 								sqlite3_close(db);
-//								break;
-//							}
+								break;
+							}
 
 							break;
 						case 3:
 							imprimirListaProductos(lp1);
 							printf(
-									"\nEstás seguro de que deseas modificar un producto?(s/n): \n");
+									"Estás seguro de eliminar modificar un producto?(si: 1, no: 0): ");
 							fflush(stdout);
-							fgets(get, 3, stdin);
-							sscanf(get, "%s", &seguro);
-							printf(seguro);
-							fflush(stdout);
-							if (strcmp(seguro, "s") == 0) {
-							nombreProducto = codigoProductoBorrar();
-							sqlite3_open("MueblesDeusto.db", &db);
+							fflush(stdin);
+							fgets(get, sizeof(get), stdin);
+							sscanf(get, "%d", &resultado);
+							if (resultado == 1) {
+								nombreProducto = codigoProductoBorrar();
+								sqlite3_open("MueblesDeusto.db", &db);
 
-							borrarProductoBD(db, nombreProducto.cod_p);
-							sqlite3_close(db);
+								borrarProductoBD(db, nombreProducto.cod_p);
+								sqlite3_close(db);
 //							borrarProductoFichero(nombreProducto.cod_p,"Productos.txt", &lp1);
 							}
 							break;
