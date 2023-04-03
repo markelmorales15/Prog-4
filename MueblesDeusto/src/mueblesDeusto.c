@@ -43,7 +43,7 @@ int main(void) {
 
 //	obtenerProductosBD(db, &productosBD);
 
-	// Insertar un nuevo producto en la tabla
+// Insertar un nuevo producto en la tabla
 	Producto nuevoProducto;
 	strcpy(nuevoProducto.cod_p, "P002");
 	strcpy(nuevoProducto.nombre, "Silla");
@@ -62,13 +62,14 @@ int main(void) {
 
 	int opcion = 10, opcion2 = 10, opcion3 = 10, opcion4 = 10;
 	int i, clienteExiste = 0, adminExiste = 0, cat, nuevaCantidad = 0;
-//	char get[20] = "";
+	char get[20] = "";
+//	char respuesta[20] = "";
 	ListaClientes lc;
 	ListaClientes admin;
 	lc.numC = 0;
 	ListaProductos lp1;
 //	ListaProductos lpb;
-//	char seguro[3] = "";
+	char seguro[3] = "";
 
 //	Producto *producto = malloc(sizeof(Prosducto));
 //		strcpy(producto->cod_p, "P1234");
@@ -81,7 +82,7 @@ int main(void) {
 	volcarFicheroAListaClientes(&lc, "Clientes.txt");
 	volcarFicheroAListaClientes(&admin, "Administradores.txt");
 	volcarFicheroAListaProductos(&lp1, "Productos.txt");
-	imprimirListaProductos(lp1);
+//	imprimirListaProductos(lp1);
 //	imprimirListaClientes(admin);
 //	imprimirListaClientes(lc);
 
@@ -215,7 +216,7 @@ int main(void) {
 					carritocliente->importeTotal = 0;
 					switch (opcion2) {
 					case 1:
-						opcion3 = mostrarCarrito(*carrito);	//Mirar que cuando salga de una opción no vuelva al menu de inicio, tiene que volver al del cliente
+						opcion3 = mostrarCarrito(*carritocliente);	//Mirar que cuando salga de una opción no vuelva al menu de inicio, tiene que volver al del cliente
 						break;
 					case 2:
 						//Imprimimos el carrito para comprobar que se ha borrado o al usuario no le interesa?
@@ -231,9 +232,12 @@ int main(void) {
 						break;
 					case 4:
 						cat = imprimirListaCategorias();
-						productosCategoria = buscarProducto(*lp, cat);
+						productosCategoria = buscarProducto(lp1, cat);
 						imprimirListaProductos(productosCategoria);
-						opcion4 = menuBuscar(*carritocliente, lp1);
+						imprimirCarrito(*carritocliente);
+						opcion4 = menuBuscar(carritocliente, lp1);
+//						printf("%d", carritocliente->numProductos);
+						imprimirCarrito(*carritocliente);
 						break;
 					case 0:	//Salir
 						printf("\nAgur! \n\n");
@@ -268,30 +272,39 @@ int main(void) {
 							break;
 						case 2:	//Modificar producto -- falta arreglarlo
 							imprimirListaProductos(lp1);
-							nombreProducto = codigoProductoModificar();
-							nuevaCantidad = nuevaCantidadProducto();
-							sqlite3_open("MueblesDeusto.db", &db);
-							modificarCantidadProductoBD(db,
-									nombreProducto.cod_p, nuevaCantidad);
-							sqlite3_close(db);
+//							printf(
+//									"Estás seguro de querer modificar un producto?(s/n): \n");
+//							fflush(stdout);
+//							fgets(get, 20, stdin);
+//							sscanf(get, "%s", respuesta);
+//							if (strcpy(respuesta, "s") == 0) {
+								nombreProducto = codigoProductoModificar();
+								nuevaCantidad = nuevaCantidadProducto();
+								sqlite3_open("MueblesDeusto.db", &db);
+								modificarCantidadProductoBD(db,
+										nombreProducto.cod_p, nuevaCantidad);
+								sqlite3_close(db);
+//								break;
+//							}
+
 							break;
 						case 3:
 							imprimirListaProductos(lp1);
-//							printf(
-//									"\nEstás seguro de que deseas modificar un producto?(s/n): \n");
-//							fflush(stdout);
-//							fgets(get, 3, stdin);
-//							sscanf(get, "%s", &seguro);
-//							printf(seguro);
-//							fflush(stdout);
-//							if (strcmp(seguro, "s")) {
+							printf(
+									"\nEstás seguro de que deseas modificar un producto?(s/n): \n");
+							fflush(stdout);
+							fgets(get, 3, stdin);
+							sscanf(get, "%s", &seguro);
+							printf(seguro);
+							fflush(stdout);
+							if (strcmp(seguro, "s") == 0) {
 							nombreProducto = codigoProductoBorrar();
 							sqlite3_open("MueblesDeusto.db", &db);
 
 							borrarProductoBD(db, nombreProducto.cod_p);
 							sqlite3_close(db);
 //							borrarProductoFichero(nombreProducto.cod_p,"Productos.txt", &lp1);
-//							}
+							}
 							break;
 						case 4: //mostrar productos -- falta arreglar
 							sqlite3_open("MueblesDeusto.db", &db);
@@ -313,7 +326,8 @@ int main(void) {
 							sqlite3_close(db);
 
 							sqlite3_open("MueblesDeusto.db", &db);
-							printf("\nEl producto con mayor cantidad en la tienda es el siguiente: \n");
+							printf(
+									"\nEl producto con mayor cantidad en la tienda es el siguiente: \n");
 							fflush(stdout);
 							productoMayorCantidad(db);
 							sqlite3_close(db);

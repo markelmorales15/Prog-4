@@ -50,6 +50,8 @@ ListaProductos buscarProducto(ListaProductos lp, CategoriaProducto c) {
 	lpCategoria.numProductos = 0;
 	lpCategoria.aProductos = (Producto*) malloc(
 			lp.numProductos * sizeof(Producto));
+	printf("LISTA LP1\n");
+	imprimirListaProductos(lp);fflush(stdout);
 	for (int i = 0; i < lp.numProductos; i++) {
 		if (lp.aProductos[i].tipo == c) {
 			lpCategoria.aProductos[lpCategoria.numProductos++] =
@@ -291,19 +293,26 @@ int buscarProductoCategoria() {
 //    return 0; // Devuelve 0 para indicar que no se ha encontrado el producto buscado
 //}
 
-Producto buscarProd(ListaProductos lista, char *codigo) {
-	Producto p;
+Producto* buscarProd(ListaProductos lista, char *codigo) {
+	Producto *p = malloc(sizeof(Producto));
+	printf("LISTA\n");
+	imprimirListaProductos(lista);
 	for (int i = 0; i < lista.numProductos; i++) {
+		printf("%s-%s\n",lista.aProductos[i].cod_p, codigo);
+		printf("strcmp devuelve %d\n", strcmp(lista.aProductos[i].cod_p, codigo));
 		if (strcmp(lista.aProductos[i].cod_p, codigo) == 0) {
 //			return lista.aProductos[i];
-			strcpy(p.cod_p, lista.aProductos[i].cod_p);
-			strcpy(p.nombre, lista.aProductos[i].nombre);
-			strcpy(p.descripcion, lista.aProductos[i].descripcion);
-			p.cantidad = lista.aProductos[i].cantidad;
-			p.precio = lista.aProductos[i].precio;
-			p.tipo = lista.aProductos[i].tipo;
+			printf("ENTRA");
+			strcpy(p->cod_p, lista.aProductos[i].cod_p);
+			strcpy(p->nombre, lista.aProductos[i].nombre);
+			strcpy(p->descripcion, lista.aProductos[i].descripcion);
+			p->cantidad = lista.aProductos[i].cantidad;
+			p->precio = lista.aProductos[i].precio;
+			p->tipo = lista.aProductos[i].tipo;
 		}
 	}
+	printf("En la función buscar\n");
+	printf("%s %s %s %d\n",p->cod_p,p->nombre,p->descripcion,p->tipo); fflush(stdout);
 	return p;
 }
 
