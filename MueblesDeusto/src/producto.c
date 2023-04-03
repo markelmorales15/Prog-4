@@ -217,6 +217,8 @@ Producto codigoProductoModificar() {
 Producto anadirProductoBD() {
 	char get[20] = "";
 	Producto p;
+	printf("\nIntroduce los datos del nuevo producto: \n");
+	fflush(stdout);
 	printf("Codigo: \n");
 	fflush(stdout);
 	fflush(stdin);

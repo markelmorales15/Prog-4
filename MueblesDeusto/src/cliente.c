@@ -58,7 +58,7 @@ void volcarFicheroAListaClientes(ListaClientes *lc, char *nombreFichero) {
 	lc->numC = 0;
 	pf = fopen(nombreFichero, "r");
 	if (pf != (FILE*) NULL) {
-		fscanf(pf, "%d", &tam)
+		fscanf(pf, "%d", &tam);
 		lc->aClientes = (Cliente*) malloc(tam * sizeof(Cliente));
 
 		while (fscanf(pf, "%s %s %s", lc->aClientes[lc->numC].dni,
@@ -76,10 +76,10 @@ void volcarListaClientesAFichero(ListaClientes *lc, char *nombreFichero) {
 	FILE *pf;
 	pf = fopen(nombreFichero, "w");
 	if (pf != (FILE*) NULL) {
-		fprintf(pf, "%d\n", lc->numC);
+		fprintf(pf, "%d\n", lc->numC);fflush(stdout);
 		for (int i = 0; i < lc->numC; i++) {
 			fprintf(pf, "%s %s %s \n", lc->aClientes[i].dni,
-					lc->aClientes[i].usuario, lc->aClientes[i].contrasena);
+					lc->aClientes[i].usuario, lc->aClientes[i].contrasena);fflush(stdout);
 		}
 		fclose(pf);
 	}

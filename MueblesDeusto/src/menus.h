@@ -6,6 +6,6 @@ int menuAdmin();
 int menuCliente();
 
 Cliente inicioSesion();
-
+void leerConfig(char * nomfich, char *nombd);
 
 #endif /* MENUS_H_ */

@@ -70,3 +70,13 @@ Cliente inicioSesion() {
 	sscanf(get, "%s", c.contrasena);
 	return c;
 }
+
+void leerConfig(char * nomfich, char *nombd){
+	FILE *pf;
+
+	pf = fopen(nomfich,"r");
+	if(pf!=(FILE*)NULL){
+		fscanf(pf,"%s",nombd);
+		fclose(pf);
+	}
+}

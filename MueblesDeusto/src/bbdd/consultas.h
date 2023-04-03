@@ -16,7 +16,7 @@ int borrarProductoBD(sqlite3 *db, char *cod_p);
 void volcarListaProductosABD(sqlite3 *db, ListaProductos *lista);
 
 //Cómo lo hacemos?
-ListaProductos volcarAListaProductosBD(sqlite3 *db, ListaProductos *lp);
+int volcarAListaProductosBD(sqlite3 *db, ListaProductos *lp);
 
 //ESTADISTICAS
 int buscarProductoCaro(sqlite3 *db);
