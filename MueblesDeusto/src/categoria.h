@@ -8,7 +8,6 @@ typedef enum {
 }CategoriaProducto;
 
 int imprimirListaCategorias();
-CategoriaProducto buscarNombreCategoria();
 const char* obtenerNombreCategoria(CategoriaProducto categoria);
 
 #endif

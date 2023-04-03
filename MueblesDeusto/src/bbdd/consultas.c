@@ -1,6 +1,7 @@
 #include "consultas.h"
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 int abrirBD(sqlite3 **db) {
 	int rc = sqlite3_open("MueblesDeusto.db", db);
@@ -43,10 +44,6 @@ int crearTablaProducto(char *nombreBaseDatos) {
 	return 0;
 }
 
-//void insertarProductoBD(sqlite3 *db, Producto p) {
-//	char sql[100];
-//	sprintf(sql, "insert into Producto values(1,'%s','A','A@A.COM')", dni);
-//}
 
 int insertarProductoBD(sqlite3 *db, Producto p) {
 	char *errMsg = NULL;
@@ -97,9 +94,11 @@ int mostrarProductosBD(sqlite3 *db) {
 				descripcion, cantidad, precio, tipo);
 	}
 
+
 	sqlite3_finalize(stmt);
 	return 0;
 }
+
 
 int modificarCantidadProductoBD(sqlite3 *db, char *cod_p, int nueva_cantidad) {
 	char sql[100];
@@ -155,84 +154,6 @@ int borrarProductoBD(sqlite3 *db, char *cod_p) {
 	return 0;
 }
 
-//int obtenerProductosBD(sqlite3* db, ListaProductos* productosBD) {
-//    char* errMsg = NULL;
-//    int rc, numRows;
-//    sqlite3_stmt* stmt;
-//
-//    // Crear la sentencia SQL para obtener todos los productos
-//    const char* sql = "SELECT * FROM producto";
-//
-//    // Preparar la sentencia SQL
-//    rc = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL);
-//    if (rc != SQLITE_OK) {
-//        fprintf(stderr, "Error preparando la consulta: %s\n", sqlite3_errmsg(db));
-//        sqlite3_finalize(stmt);
-//        return 1;
-//    }
-//
-//    // Contar el número de filas que devuelve la consulta
-//    numRows = 0;
-//    while (sqlite3_step(stmt) == SQLITE_ROW) {
-//        numRows++;
-//    }
-//
-//    // Volver a preparar la sentencia SQL
-//    sqlite3_reset(stmt);
-//
-//    // Crear el array de productos
-//    productosBD->aProductos = (Producto*) malloc(numRows * sizeof(Producto));
-//    productosBD->numProductos = numRows;
-//
-//    // Volcar los datos de la consulta a la estructura ListaProductos
-//    int i = 0;
-//    while (sqlite3_step(stmt) == SQLITE_ROW) {
-//        Producto* pProducto = &(productosBD->aProductos[i]);
-//        strcpy(pProducto->cod_p, (char*)sqlite3_column_text(stmt, 0));
-//        strcpy(pProducto->nombre, (char*)sqlite3_column_text(stmt, 1));
-//        strcpy(pProducto->descripcion, (char*)sqlite3_column_text(stmt, 2));
-//        pProducto->cantidad = sqlite3_column_int(stmt, 3);
-//        pProducto->precio = sqlite3_column_double(stmt, 4);
-//        pProducto->tipo = sqlite3_column_int(stmt, 5);
-//        i++;
-//    }
-//
-//    sqlite3_finalize(stmt);
-//    return 0;
-//}
-
-//void volcarProductosBDALista(sqlite3 *db, ListaProductos *lista) {
-//	char sql[] = "SELECT * FROM producto";
-//	int result;
-//	sqlite3_stmt *stmt;
-//	lista->numProductos = 0;
-//
-//	sqlite3_prepare_v2(db, sql, strlen(sql), &stmt, 0);
-//	do {
-//			result = sqlite3_step(stmt) ;
-//			if (result == SQLITE_ROW) {
-//				Producto p;
-//				strcpy(p.cod_p,sqlite3_column_text(stmt, 0));
-//				strcpy(p.nombre,sqlite3_column_text(stmt, 1));
-//				strcpy(p.descripcion,sqlite3_column_text(stmt, 2));
-//				p.cantidad=sqlite3_column_int(stmt, 3);
-//				p.precio=sqlite3_column_double(stmt, 4);
-//				p.tipo=sqlite3_column_int(stmt, 5);
-//
-//				strcpy(lista->aProductos[lista->numProductos].cod_p,(char *)sqlite3_column_text(stmt, 0));
-//				strcpy(lista->aProductos[lista->numProductos].nombre,(char *)sqlite3_column_text(stmt, 1));
-//				strcpy(lista->aProductos[lista->numProductos].descripcion,(char *)sqlite3_column_text(stmt, 2));
-//				lista->aProductos[lista->numProductos].cantidad=p.cantidad;
-//				lista->aProductos[lista->numProductos].precio=p.precio;
-//				lista->aProductos[lista->numProductos].tipo=p.tipo;
-//
-//				lista->numProductos++;
-//			}
-//		} while (result == SQLITE_ROW);
-//
-//		sqlite3_finalize(stmt);
-//
-//}
 
 void volcarListaProductosABD(sqlite3 *db, ListaProductos *lista) {
     char sql[] = "INSERT INTO producto (cod_p, nombre, descripcion, cantidad, precio, tipo) VALUES (?, ?, ?, ?, ?, ?)";

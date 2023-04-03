@@ -1,16 +1,7 @@
 #ifndef CLIENTE_H_
 #define CLIENTE_H_
 
-/*
- * Pueden ser tanto los administradores como los usuarios
- *
- * Atributos:
- * 	- dni
- * 	- usuario
- * 	- contraseña
- */
-
-	typedef struct{
+typedef struct{
 		char dni[10];
 		char usuario[20];
 		char contrasena[20];
@@ -19,16 +10,16 @@
 
 typedef struct{
 	Cliente *aClientes;
-	int numC;	//numero de clientes
+	int numC;
 }ListaClientes;
 
 
-Cliente registro();	//Siempre va a ser un usuario, los administradores los metemos a mano en el sistema
+Cliente registro();
 void anadirClientesALista(ListaClientes *lc, Cliente nuevoCliente);
 void imprimirListaClientes (ListaClientes lc);
 void volcarFicheroAListaClientes(ListaClientes *lc, char *nombreFichero);
 void volcarListaClientesAFichero(ListaClientes *lc, char *nombreFichero);
-void liberarMemoria(ListaClientes *lc);
 char* buscarDniUsuario(ListaClientes lista, char* nombreUsuario);
+void liberarMemoria(ListaClientes *lc);
 
 #endif /* CLIENTE_H_ */

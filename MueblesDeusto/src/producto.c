@@ -1,19 +1,9 @@
-/*
- * DUDAS:
- * 	- La categoria hacemos un enum?
- * 	- Cómo le pedimos al usuario el código del producto a modificar? En la misma función o en una función buscarProducto?
- * 	- En modificar -- dejamos que se puedan modificar todos los campos o el codigo no?
- * 	- Devolver prudcto --> podemos escribirlo como lo hemos puesto?
- *
- */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "producto.h"
 
 //ADMINISTRADOR:
-
 void anadirProducto(ListaProductos *lp) {
 	char get[20] = "";
 	Producto p;
@@ -37,13 +27,11 @@ void anadirProducto(ListaProductos *lp) {
 	fflush(stdin);
 	fgets(get, 20, stdin);
 	sscanf(get, "%lf", &p.precio);
-	//Categoria -- enum??
-	printf("Categoria: \n"); //Podemos imprimir el enum con un numero asociado a cada uno y en función de su resultado, le pedimos el numero
-	//Y le asignamos la categoria
+	printf("Categoria: \n");
 	fflush(stdout);
 	fflush(stdin);
-//	gets(p.tipo);
 }
+
 
 ListaProductos buscarProducto(ListaProductos lp, CategoriaProducto c) {
 	ListaProductos lpCategoria;
@@ -51,7 +39,8 @@ ListaProductos buscarProducto(ListaProductos lp, CategoriaProducto c) {
 	lpCategoria.aProductos = (Producto*) malloc(
 			lp.numProductos * sizeof(Producto));
 	printf("LISTA LP1\n");
-	imprimirListaProductos(lp);fflush(stdout);
+	imprimirListaProductos(lp);
+	fflush(stdout);
 	for (int i = 0; i < lp.numProductos; i++) {
 		if (lp.aProductos[i].tipo == c) {
 			lpCategoria.aProductos[lpCategoria.numProductos++] =
@@ -61,39 +50,27 @@ ListaProductos buscarProducto(ListaProductos lp, CategoriaProducto c) {
 	return lpCategoria;
 }
 
-//Que se pueda cambiar todo o codigo no? + como preguntar que producto modificar
-void modificarProducto(Producto *p) {
-//	printf("1. Modificar codigo");
-	printf("1. Modificar nombre");
-	printf("2. Modificar cantidad");
-	printf("3. Modificar precio");
-	printf("4. Modificar categoria");
-	printf("0. Volver");
-	fflush(stdout);
-	fflush(stdin);
-}
 
-void eliminarProducto(Producto p, ListaProductos *lp) {
+//void modificarProducto(Producto *p) {
+////	printf("1. Modificar codigo");
+//	printf("1. Modificar nombre");
+//	printf("2. Modificar cantidad");
+//	printf("3. Modificar precio");
+//	printf("4. Modificar categoria");
+//	printf("0. Volver");
+//	fflush(stdout);
+//	fflush(stdin);
+//}
 
-}
-/*
- ----------------YO CREO QUE ASI SERIA MAS FACIL-------------------
- void ModificarProducto(Producto *p ){ CON UNA SOLA FUNCION MODIFICAS TODOS LOS ATRIBUTOS
 
- }
- */
 
 //CLIENTE
 void devolverProducto(ListaProductos *lp, Producto nombreProducto) {
-	// Crear un objeto Producto dentro de la función
 	Producto p;
-	strcpy(p.nombre, nombreProducto.nombre); // Copiar el contenido de nombreProducto en p
-
-	// Buscar el producto en la lista
+	strcpy(p.cod_p, nombreProducto.cod_p);
 	int i;
 	for (i = 0; i < lp->numProductos; i++) {
-		if (strcmp(lp->aProductos[i].nombre, p.nombre) == 0) {
-			// Producto encontrado, aumentar cantidad y salir del bucle
+		if (strcmp(lp->aProductos[i].cod_p, p.cod_p) == 0) {
 			lp->aProductos[i].cantidad++;
 			break;
 		}
@@ -103,7 +80,7 @@ void devolverProducto(ListaProductos *lp, Producto nombreProducto) {
 }
 
 void visualizarTienda(ListaProductos lp) {
-	char nombres[4][30] = { "ELECTRONICA", "ROPA", "ALIMENTOS", "HOGAR" };
+	char nombres[3][30] = { "MESAS", "SILLAS", "SOFAS" };
 	int i;
 	for (i = 0; i < lp.numProductos; i++) {
 		printf("CÓDIGO DEL PRODUCTO: %s\n", lp.aProductos[i].cod_p);
@@ -114,10 +91,11 @@ void visualizarTienda(ListaProductos lp) {
 		fflush(stdout);
 		printf("PRECIO: %.2f\n", lp.aProductos[i].precio);
 		fflush(stdout);
-		printf("CATEGORIA: %s\n", nombres[lp.aProductos[i].tipo]); //Coger el codigo de la categoria e imprimir el nombre
+		printf("CATEGORIA: %s\n", nombres[lp.aProductos[i].tipo]);
 		fflush(stdout);
 	}
 }
+
 
 void imprimirListaProductos(ListaProductos lp) {
 	printf("\nLista de productos de MueblesDeusto: \n");
@@ -141,6 +119,7 @@ void imprimirListaProductos(ListaProductos lp) {
 	}
 }
 
+
 void volcarFicheroAListaProductos(ListaProductos *lp, char *nombreFichero) {
 	FILE *pf;
 	int tam;
@@ -162,12 +141,13 @@ void volcarFicheroAListaProductos(ListaProductos *lp, char *nombreFichero) {
 			lp->numProductos++;
 		}
 		fclose(pf);
-	} else {	//Si el archivo está vacío
+	} else {
 		lp->aProductos = NULL;
 		return;
 	}
 
 }
+
 
 Producto nombreProductoBorrar() {
 	char get[20] = "";
@@ -181,6 +161,7 @@ Producto nombreProductoBorrar() {
 	return p;
 }
 
+
 Producto nombreProductoDevolver() {
 	char get[20] = "";
 	Producto p;
@@ -189,9 +170,11 @@ Producto nombreProductoDevolver() {
 	fflush(stdout);
 	fflush(stdin);
 	fgets(get, 20, stdin);
-	sscanf(get, "%s", p.nombre);
+	get[strlen(get) - 1] = '\0';
+	sprintf(p.cod_p, "%s", get);
 	return p;
 }
+
 
 Producto codigoProductoBorrar() {
 	char get[20] = "";
@@ -205,6 +188,7 @@ Producto codigoProductoBorrar() {
 	return p;
 }
 
+
 int nuevaCantidadProducto() {
 	int nuevaCantidad;
 	char get[1000] = "";
@@ -215,6 +199,7 @@ int nuevaCantidadProducto() {
 	sscanf(get, "%d", &nuevaCantidad);
 	return nuevaCantidad;
 }
+
 
 Producto codigoProductoModificar() {
 	char get[20] = "";
@@ -227,6 +212,7 @@ Producto codigoProductoModificar() {
 	sscanf(get, "%s", p.cod_p);
 	return p;
 }
+
 
 Producto anadirProductoBD() {
 	char get[20] = "";
@@ -256,15 +242,11 @@ Producto anadirProductoBD() {
 	fflush(stdin);
 	fgets(get, 20, stdin);
 	sscanf(get, "%lf", &p.precio);
-	//Categoria -- enum??
-	printf("Categoria: \n"); //Podemos imprimir el enum con un numero asociado a cada uno y en función de su resultado, le pedimos el numero
-	//Y le asignamos la categoria
+	printf("Categoria: \n");
 	fflush(stdout);
 	fflush(stdin);
 	fgets(get, 20, stdin);
 	sscanf(get, "%d", &p.tipo);
-
-//	gets(p.tipo);
 	return p;
 }
 int buscarProductoCategoria() {
@@ -273,35 +255,16 @@ int buscarProductoCategoria() {
 	return opcion;
 }
 
-//int copiarProductoComprar(ListaProductos lp, char *codigoBuscado, Producto *productoEncontrado){
-//    int i;
-//    for (i = 0; i < lp.numProductos; i++) {
-//        if (strcmp(codigoBuscado, lp.aProductos[i].cod_p) == 0) {
-//            // Copia los valores del producto encontrado en el puntero productoEncontrado
-//            strcpy(productoEncontrado->cod_p, lp.aProductos[i].cod_p);
-//            strcpy(productoEncontrado->nombre, lp.aProductos[i].nombre);
-//            strcpy(productoEncontrado->descripcion, lp.aProductos[i].descripcion);
-//            productoEncontrado->cantidad = lp.aProductos[i].cantidad;
-//            productoEncontrado->precio = lp.aProductos[i].precio;
-//            productoEncontrado->tipo = lp.aProductos[i].tipo;
-//            return 1; // Devuelve 1 para indicar que se ha encontrado el producto buscado
-//        }
-//    }
-//    // Si no se encuentra el producto, se muestra un mensaje de error
-//    printf("No existe un producto con ese código. \n");
-//    fflush(stdout);
-//    return 0; // Devuelve 0 para indicar que no se ha encontrado el producto buscado
-//}
 
 Producto* buscarProd(ListaProductos lista, char *codigo) {
 	Producto *p = malloc(sizeof(Producto));
 	printf("LISTA\n");
 	imprimirListaProductos(lista);
 	for (int i = 0; i < lista.numProductos; i++) {
-		printf("%s-%s\n",lista.aProductos[i].cod_p, codigo);
-		printf("strcmp devuelve %d\n", strcmp(lista.aProductos[i].cod_p, codigo));
+		printf("%s-%s\n", lista.aProductos[i].cod_p, codigo);
+		printf("strcmp devuelve %d\n",
+				strcmp(lista.aProductos[i].cod_p, codigo));
 		if (strcmp(lista.aProductos[i].cod_p, codigo) == 0) {
-//			return lista.aProductos[i];
 			printf("ENTRA");
 			strcpy(p->cod_p, lista.aProductos[i].cod_p);
 			strcpy(p->nombre, lista.aProductos[i].nombre);
@@ -312,71 +275,7 @@ Producto* buscarProd(ListaProductos lista, char *codigo) {
 		}
 	}
 	printf("En la función buscar\n");
-	printf("%s %s %s %d\n",p->cod_p,p->nombre,p->descripcion,p->tipo); fflush(stdout);
+	printf("%s %s %s %d\n", p->cod_p, p->nombre, p->descripcion, p->tipo);
+	fflush(stdout);
 	return p;
 }
-
-//ListaProductos agregarProductoLista(ListaProductos lista, Producto p) {
-//    // Reallocar la memoria para aProductos
-//    lista.aProductos = realloc(lista.aProductos, (lista.numProductos+1)*sizeof(Producto));
-//    if (lista.aProductos == NULL) {
-//        fprintf(stderr, "Error al reallocar memoria para lista.aProductos\n");
-//        exit(1);
-//    }
-//
-//    // Agregar el nuevo producto al final de la lista
-//    lista.aProductos[lista.numProductos] = p;
-//    lista.numProductos++;
-//
-//    return lista;
-//}
-//
-//
-//
-//void borrarProductoFichero(char *codigo, char *nombreFichero, ListaProductos *lista) {
-//    FILE *f = fopen(nombreFichero, "r");
-//    if (f == NULL) {
-//        printf("Error abriendo el archivo\n");
-//        return;
-//    }
-//
-//    int numProductos;
-//    fscanf(f, "%d", &numProductos);
-//
-//    // Búsqueda del producto en el archivo
-//    int encontrado = 0;
-//    for (int i = 0; i < numProductos; i++) {
-//        Producto p;
-//        fscanf(f, "%s %s %s %d %lf %d", p.cod_p, p.nombre, p.descripcion, &p.cantidad, &p.precio, &p.tipo);
-//        if (strcmp(p.cod_p, codigo) == 0) {
-//            encontrado = 1;
-//        } else {
-//        	agregarProductoLista(p, lista);
-//        }
-//    }
-//
-//    fclose(f);
-//
-//    if (!encontrado) {
-//        printf("No se ha encontrado el producto con el código %s\n", codigo);
-//        return;
-//    }
-//
-//    // Volcar la lista actualizada al archivo
-//    f = fopen(nombreFichero, "w");
-//    if (f == NULL) {
-//        printf("Error abriendo el archivo\n");
-//        return;
-//    }
-//
-//    fprintf(f, "%d\n", lista->numProductos);
-//    for (int i = 0; i < lista->numProductos; i++) {
-//        Producto p = lista->aProductos[i];
-//        fprintf(f, "%s %s %s %d %lf %d\n", p.cod_p, p.nombre, p.descripcion, p.cantidad, p.precio, p.tipo);
-//    }
-//
-//    fclose(f);
-//
-//    printf("El producto con el código %s ha sido eliminado del archivo %s\n", codigo, nombreFichero);
-//}
-//

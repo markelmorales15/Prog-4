@@ -24,12 +24,10 @@ int mostrarCarrito(Carrito c) {
 		sscanf(get, "%d", &opcion);
 		switch (opcion) {
 		case 1:
-			//tenemos que vaciar el carrito
-
 			if (c.numProductos == 0) {
 				printf("El carrito está vacio. \n");
 			} else {
-				imprimirTicket(c, "Ticket"); //Cambiar el nombre para cada cliente
+				imprimirTicket(c, "Ticket");
 				comprarCarrito(&c);
 				printf(
 						"\nLa compra se ha realizado con éxito y su ticket de la compra ha sido generado.\n");
@@ -110,7 +108,7 @@ void eliminarProductoCarrito(Carrito *carrito, Producto producto) {
 				carrito->aProductos[j] = carrito->aProductos[j + 1];
 			}
 			carrito->numProductos--;
-			i--; // Decrementamos i para que se compruebe el producto en la nueva posición i
+			i--;
 			encontrado = 1;
 		}
 	}
@@ -144,7 +142,7 @@ int menuBuscar(Carrito *c, ListaProductos lp) {
 	int opcion;
 	char get[20] = "";
 	char codigoProd[20] = "";
-	Producto *p; // Variable booleana para controlar si se ha encontrado el producto buscado
+	Producto *p;
 	do {
 		printf("\n1. Aniadir un producto a mi carrito\n");
 		fflush(stdout);
@@ -158,12 +156,10 @@ int menuBuscar(Carrito *c, ListaProductos lp) {
 		sscanf(get, "%d", &opcion);
 		switch (opcion) {
 		case 1:
-			// Añadir un producto al carrito del cliente
 			printf(
 					"¿Qué producto de la tienda desea añadir a su carrito? (Introduzca su codigo): ");
 			fflush(stdout);
 			fflush(stdin);
-//                fgets(codigoProd, sizeof(codigoProd), stdin);
 			fgets(get, 20, stdin);
 			get[strlen(get)-1] = '\0';
 			sprintf(codigoProd,"%s",get);

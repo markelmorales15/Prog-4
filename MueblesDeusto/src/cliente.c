@@ -23,21 +23,19 @@ Cliente registro() {
 	fflush(stdin);
 	fgets(get, 20, stdin);
 	sscanf(get, "%s", c.contrasena);
-	//Meter el cliente en la lista de clientes
-//	menuCliente();
 	return c;
 
 }
 
-//Llamamos a esta función cada vez que vayamos a registrar a un nuevo cliente
+
 void anadirClientesALista(ListaClientes *lc, Cliente nuevoCliente) {
 	lc->aClientes = realloc(lc->aClientes, sizeof(Cliente) * (lc->numC + 1));
 	lc->aClientes[lc->numC] = nuevoCliente;
 	lc->numC++;
 }
 
+
 void imprimirListaClientes(ListaClientes lc) {
-//	int i;
 	printf("Lista de clientes de MueblesDeusto: \n");
 	fflush(stdout);
 	for (int i = 0; i < lc.numC; i++) {
@@ -53,15 +51,14 @@ void imprimirListaClientes(ListaClientes lc) {
 	}
 }
 
-//TENEMOS QUE CAMBIAR EL NÚMERO DE TAM CUANDO SE AÑADAN NUEVOS CLIENTES
+
 void volcarFicheroAListaClientes(ListaClientes *lc, char *nombreFichero) {
 	FILE *pf;
 	int tam;
 	lc->numC = 0;
 	pf = fopen(nombreFichero, "r");
 	if (pf != (FILE*) NULL) {
-		//Leemos la línea del fichero y la guardamos en la lista en los campos correspondientes
-		fscanf(pf, "%d", &tam);	//Guardamos en tam el número de clientes, la primera línea del fichero.
+		fscanf(pf, "%d", &tam)
 		lc->aClientes = (Cliente*) malloc(tam * sizeof(Cliente));
 
 		while (fscanf(pf, "%s %s %s", lc->aClientes[lc->numC].dni,
@@ -79,7 +76,7 @@ void volcarListaClientesAFichero(ListaClientes *lc, char *nombreFichero) {
 	FILE *pf;
 	pf = fopen(nombreFichero, "w");
 	if (pf != (FILE*) NULL) {
-		fprintf(pf, "%d\n", lc->numC); // Escribimos el número de clientes al principio del fichero
+		fprintf(pf, "%d\n", lc->numC);
 		for (int i = 0; i < lc->numC; i++) {
 			fprintf(pf, "%s %s %s \n", lc->aClientes[i].dni,
 					lc->aClientes[i].usuario, lc->aClientes[i].contrasena);
@@ -88,18 +85,16 @@ void volcarListaClientesAFichero(ListaClientes *lc, char *nombreFichero) {
 	}
 }
 
+
 char* buscarDniUsuario(ListaClientes lista, char* nombreUsuario) {
-    // Recorrer la lista de usuarios
     for (int i = 0; i < lista.numC; i++) {
-        // Comprobar si el nombre de usuario coincide
         if (strcmp(lista.aClientes[i].usuario, nombreUsuario) == 0) {
-            // Devolver el dni correspondiente
             return lista.aClientes[i].dni;
         }
     }
-    // Si no se encuentra el usuario, devolver NULL
     return NULL;
 }
+
 
 void liberarMemoria(ListaClientes *lc) {
 	free(lc->aClientes);
