@@ -1,4 +1,4 @@
-11
+14
 111A A 111 
 222B B 222 
 333C C 333 
@@ -10,3 +10,6 @@ t t t
 nuevo nuevo nuevo 
 b b b 
 6 6 6 
+1 1 1 
+a a a 
+12345678A Nuevo 123 

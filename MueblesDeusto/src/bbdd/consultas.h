@@ -14,9 +14,9 @@ int mostrarProductosBD(sqlite3* db);
 int modificarCantidadProductoBD(sqlite3 *db, char *cod_p, int nueva_cantidad);
 int borrarProductoBD(sqlite3 *db, char *cod_p);
 void volcarListaProductosABD(sqlite3 *db, ListaProductos *lista);
-
-//Cómo lo hacemos?
+int mostrarProductosCategoriaBD(sqlite3 *db, int categoria);
 int volcarAListaProductosBD(sqlite3 *db, ListaProductos *lp);
+int devolverProductoBD(sqlite3 *db,Producto p);
 
 //ESTADISTICAS
 int buscarProductoCaro(sqlite3 *db);

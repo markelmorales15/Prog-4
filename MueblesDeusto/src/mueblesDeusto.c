@@ -20,7 +20,6 @@ int main(void) {
 	 */
 
 	// Abrir la base de datos
-
 	sqlite3 *db;
 
 	Cliente nuevoCliente;
@@ -45,7 +44,6 @@ int main(void) {
 	char nombd[50];
 
 	leerConfig("Configuracion.conf", nombd);
-	printf("%s\n",nombd);fflush(stdout);
 	int rc = sqlite3_open(nombd, &db);
 	if (rc != SQLITE_OK) {
 		printf("Error abriendo la base de datos: %s\n", sqlite3_errmsg(db));
@@ -53,8 +51,8 @@ int main(void) {
 		sqlite3_close(db);
 		return 1;
 	}
-	//volcarAListaProductosBD(db, &productosBD);
-	//imprimirListaProductos(productosBD);
+	volcarAListaProductosBD(db, &productosBD);
+//	imprimirListaProductos(productosBD);
 	//Volcamos los fichero a las listas
 	//PRODUCTOS:
 	volcarFicheroAListaProductos(&lp1, "Productos.txt");
@@ -124,29 +122,32 @@ int main(void) {
 					opcion2 = menuCliente();
 					switch (opcion2) {
 					case 1:
-						opcion3 = mostrarCarrito(*carritocliente);
+						opcion3 = mostrarCarrito(carritocliente);
 						break;
 					case 2:
-						imprimirCarrito(*carritocliente);
-						imprimirListaProductos(lp1);
+						imprimirListaProductos(productosBD);
 						codProd = nombreProductoDevolver();
-						devolverProducto(&lp1, codProd);
-						imprimirCarrito(*carritocliente);
-						imprimirListaProductos(lp1);
+						devolverProducto(&productosBD, codProd);
+						imprimirListaProductos(productosBD);
+						sqlite3_open(nombd, &db);
+//						devolverProductoBD(db, codProd);
+						modificarCantidadProductoBD(db, codProd.cod_p, codProd.cantidad+1);
+						sqlite3_close(db);
 						break;
 					case 3:
-						imprimirListaProductos(lp1);
+						imprimirListaProductos(productosBD);
 						break;
 					case 4:
 						cat = imprimirListaCategorias();
-						productosCategoria = buscarProducto(lp1, cat);
-						imprimirListaProductos(productosCategoria);
+						sqlite3_open(nombd, &db);
+						mostrarProductosCategoriaBD(db, cat);
 						imprimirCarrito(*carritocliente);
-						opcion4 = menuBuscar(carritocliente, lp1);
-						imprimirCarrito(*carritocliente);
-						printf("Número de productos del carrito: %d\n",
-								carritocliente->numProductos);
-						fflush(stdout);
+						opcion4 = menuBuscar(carritocliente, productosBD);
+//						imprimirCarrito(*carritocliente);
+//						printf("Número de productos del carrito: %d\n",
+//								carritocliente->numProductos);
+//						fflush(stdout);
+						sqlite3_close(db);
 						break;
 					case 0:
 						printf("\nAgur! \n\n");
@@ -185,7 +186,7 @@ int main(void) {
 							mostrarProductosBD(db);
 							sqlite3_close(db);
 							printf(
-									"Estás seguro de querer modificar un producto?(si: 1, no: 0): \n");
+									"\nEstás seguro de querer modificar un producto?(si: 1, no: 0): ");
 							fflush(stdout);
 							fflush(stdin);
 							fgets(get, sizeof(get), stdin);
@@ -206,7 +207,7 @@ int main(void) {
 							mostrarProductosBD(db);
 							sqlite3_close(db);
 							printf(
-									"Estás seguro de eliminar modificar un producto?(si: 1, no: 0): ");
+									"\nEstás seguro de querer eliminar un producto?(si: 1, no: 0): ");
 							fflush(stdout);
 							fflush(stdin);
 							fgets(get, sizeof(get), stdin);

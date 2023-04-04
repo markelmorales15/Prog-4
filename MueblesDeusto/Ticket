@@ -2,15 +2,9 @@ TICKET DE COMPRA
 Cliente: 12345678A
 -----------------------------
 Producto 1:
-Nombre: Leche
-Descripción: Leche desnatada
-Cantidad: 1
-Precio: 0.80 €
+Nombre: Silla
+Descripción: corta
+Cantidad: 34
+Precio: 23.23 €
 -----------------------------
-Producto 2:
-Nombre: producto2
-Descripción: producto2
-Cantidad: 2
-Precio: 5.00 €
------------------------------
-Importe total: 5.80 €
+Importe total: -4.52 €
