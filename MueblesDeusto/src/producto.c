@@ -48,16 +48,6 @@ ListaProductos buscarProducto(ListaProductos lp, CategoriaProducto c) {
 	return lpCategoria;
 }
 
-//void modificarProducto(Producto *p) {
-////	printf("1. Modificar codigo");
-//	printf("1. Modificar nombre");
-//	printf("2. Modificar cantidad");
-//	printf("3. Modificar precio");
-//	printf("4. Modificar categoria");
-//	printf("0. Volver");
-//	fflush(stdout);
-//	fflush(stdin);
-//}
 
 //CLIENTE
 void devolverProducto(ListaProductos *lp, Producto nombreProducto) {
@@ -204,6 +194,11 @@ Producto codigoProductoModificar() {
 	return p;
 }
 
+void quitarSalto(char *cad){
+	if(cad[strlen(cad)-1]=='\n')
+		cad[strlen(cad)-1] = '\0';
+}
+
 Producto anadirProductoBD() {
 	char get[20] = "";
 	Producto p;
@@ -213,31 +208,37 @@ Producto anadirProductoBD() {
 	fflush(stdout);
 	fflush(stdin);
 	fgets(get, 20, stdin);
+	quitarSalto(get);
 	sscanf(get, "%s", p.cod_p);
 	printf("Nombre: ");
 	fflush(stdout);
 	fflush(stdin);
 	fgets(get, 20, stdin);
+	quitarSalto(get);
 	sscanf(get, "%s", p.nombre);
 	printf("Descripcion: ");
 	fflush(stdout);
 	fflush(stdin);
 	fgets(get, 20, stdin);
+	quitarSalto(get);
 	sscanf(get, "%s", p.descripcion);
 	printf("Cantidad: ");
 	fflush(stdout);
 	fflush(stdin);
 	fgets(get, 20, stdin);
+	quitarSalto(get);
 	sscanf(get, "%d", &p.cantidad);
 	printf("Precio: ");
 	fflush(stdout);
 	fflush(stdin);
 	fgets(get, 20, stdin);
+	quitarSalto(get);
 	sscanf(get, "%lf", &p.precio);
 	printf("Categoria: ");
 	fflush(stdout);
 	fflush(stdin);
 	fgets(get, 20, stdin);
+	quitarSalto(get);
 	sscanf(get, "%d", &p.tipo);
 	return p;
 }
@@ -249,15 +250,10 @@ int buscarProductoCategoria() {
 
 Producto* buscarProd(ListaProductos lista, char *codigo) {
 	Producto *p = malloc(sizeof(Producto));
-	printf("LISTA\n");
 	fflush(stdout);
 	imprimirListaProductos(lista);
 	for (int i = 0; i < lista.numProductos; i++) {
-		printf("%s-%s\n", lista.aProductos[i].cod_p, codigo);
-		printf("strcmp devuelve %d\n",
-				strcmp(lista.aProductos[i].cod_p, codigo));
 		if (strcmp(lista.aProductos[i].cod_p, codigo) == 0) {
-			printf("ENTRA");
 			strcpy(p->cod_p, lista.aProductos[i].cod_p);
 			strcpy(p->nombre, lista.aProductos[i].nombre);
 			strcpy(p->descripcion, lista.aProductos[i].descripcion);
@@ -266,9 +262,5 @@ Producto* buscarProd(ListaProductos lista, char *codigo) {
 			p->tipo = lista.aProductos[i].tipo;
 		}
 	}
-	printf("En la función buscar\n");
-	fflush(stdout);
-	printf("%s %s %s %d\n", p->cod_p, p->nombre, p->descripcion, p->tipo);
-	fflush(stdout);
 	return p;
 }

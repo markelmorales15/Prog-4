@@ -59,6 +59,8 @@ void imprimirCarrito(Carrito c) {
 	for (int i = 0; i < c.numProductos; i++) {
 		printf("[PRODUCTO %d: ", i + 1);
 		fflush(stdout);
+		printf("CODIGO: %s, ", c.aProductos[i].cod_p);
+		fflush(stdout);
 		printf("NOMBRE: %s, ", c.aProductos[i].nombre);
 		fflush(stdout);
 		printf("CANTIDAD: %d, ", c.aProductos[i].cantidad);
@@ -87,6 +89,7 @@ void imprimirTicket(Carrito c, char *nombreFichero) {
 		fprintf(f, "Cantidad: %d\n", c.aProductos[i].cantidad);
 		fprintf(f, "Precio: %.2f €\n", c.aProductos[i].precio);
 		fprintf(f, "-----------------------------\n");
+		c.importeTotal += c.aProductos[i].precio;
 	}
 
 	// Escribir importe total
@@ -101,7 +104,6 @@ void eliminarProductoCarrito(Carrito *carrito, Producto producto) {
 	int encontrado = 0;
 
 	for (i = 0; i < carrito->numProductos && !encontrado; i++) {
-		printf("%s %s\n",carrito->aProductos[i].cod_p, producto.cod_p);
 		if (strcmp(carrito->aProductos[i].cod_p, producto.cod_p) == 0) {
 			// Producto encontrado, eliminamos y actualizamos el importe total
 			carrito->importeTotal -= carrito->aProductos[i].precio;
@@ -164,10 +166,7 @@ int menuBuscar(Carrito *c, ListaProductos lp) {
 			fgets(get, 20, stdin);
 			get[strlen(get)-1] = '\0';
 			sprintf(codigoProd,"%s",get);
-//                codigoProd[strcspn(codigoProd, "\n")] = 0; // Elimina el salto de línea de la entrada
-			printf("El producto a buscar es: %s\n",codigoProd); fflush(stdout);
 			p = buscarProd(lp, codigoProd);
-//			printf("%s %s %s %d\n",p->cod_p,p->nombre,p->descripcion,p->tipo);fflush(stdout);
 			aniadirProductoCarrito(c, *p);
 			imprimirCarrito(*c);
 			break;

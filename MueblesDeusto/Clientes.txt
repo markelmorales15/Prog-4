@@ -1,4 +1,4 @@
-14
+8
 111A A 111 
 222B B 222 
 333C C 333 
@@ -6,10 +6,4 @@
 555E E 555 
 666F F 666 
 777G G 777 
-t t t 
-nuevo nuevo nuevo 
-b b b 
-6 6 6 
-1 1 1 
-a a a 
-12345678A Nuevo 123 
+a a a

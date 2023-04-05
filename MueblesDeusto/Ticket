@@ -1,10 +1,28 @@
 TICKET DE COMPRA
-Cliente: 12345678A
+Cliente: a
 -----------------------------
 Producto 1:
+Nombre: Mesa
+Descripción: larga
+Cantidad: 46
+Precio: 4.52 €
+-----------------------------
+Producto 2:
 Nombre: Silla
 Descripción: corta
 Cantidad: 34
 Precio: 23.23 €
 -----------------------------
-Importe total: -4.52 €
+Producto 3:
+Nombre: Sofá
+Descripción: Azul
+Cantidad: 56
+Precio: 23.43 €
+-----------------------------
+Producto 4:
+Nombre: Sofffa
+Descripción: Italiano
+Cantidad: 56
+Precio: 87.87 €
+-----------------------------
+Importe total: 139.05 €

@@ -9,23 +9,12 @@
 #include "bbdd/consultas.h"
 
 int main(void) {
-
-	/*
-	 * DUDAS:
-	 * 	1. - Fichero Productos.txt no se lee correctamente
-	 * 	2. - El cuarto método del menú cliente (4. Buscar un producto) no funciona
-	 * 	3. - El método de borrar carrito (en carrito.c) no nos funciona bien. Si le damos a borrar y luego le damos a eliminar producto,
-	 * 		nos vuelve a salir la lista de productos y no deberia, deber	ía de quedarse vacía.
-	 * 	4. - Cuando en el main llamamos al método devolver un producto, imprimimos el carrito para comprobar que se ha borrado o al usuario no le interesa?
-	 */
-
 	// Abrir la base de datos
 	sqlite3 *db;
 
 	Cliente nuevoCliente;
 	Cliente inicio;
 
-	ListaProductos productosCategoria;
 	ListaProductos productosBD;
 	ListaProductos lp1;
 
@@ -51,10 +40,11 @@ int main(void) {
 		sqlite3_close(db);
 		return 1;
 	}
+
+	//PRODUCTOS - BBDD
 	volcarAListaProductosBD(db, &productosBD);
-//	imprimirListaProductos(productosBD);
-	//Volcamos los fichero a las listas
-	//PRODUCTOS:
+
+	//Productos - FICHERO
 	volcarFicheroAListaProductos(&lp1, "Productos.txt");
 
 	//CLIENTES
@@ -62,15 +52,6 @@ int main(void) {
 
 	//ADMINISTRADORES
 	volcarFicheroAListaClientes(&admin, "Administradores.txt");
-
-//	sqlite3_open("MueblesDeusto.db", &db);
-	// Crear la tabla producto si no existe
-	//crearTablaProducto("MueblesDeusto.db");
-	//printf("ListaProdddd:\n");
-	//fflush(stdout);
-	//mostrarProductosBD(db);
-
-//	imprimirListaProductos(productosBD);
 
 	sqlite3_close(db);
 
@@ -81,7 +62,7 @@ int main(void) {
 		case 1:
 			nuevoCliente = registro();
 			for (i = 0; i < lc.numC; i++) {
-				if (strcmp(nuevoCliente.dni, lc.aClientes[i].dni) == 0) {//Compramos el dni del cliente nuevo con el resto de nuestros clientes
+				if (strcmp(nuevoCliente.dni, lc.aClientes[i].dni) == 0) { //Compramos el dni del cliente nuevo con el resto de nuestros clientes
 					clienteExiste = 1;
 					break;
 				}
@@ -130,8 +111,7 @@ int main(void) {
 						devolverProducto(&productosBD, codProd);
 						imprimirListaProductos(productosBD);
 						sqlite3_open(nombd, &db);
-//						devolverProductoBD(db, codProd);
-						modificarCantidadProductoBD(db, codProd.cod_p, codProd.cantidad+1);
+						devolverProductoBD(db, codProd);
 						sqlite3_close(db);
 						break;
 					case 3:
@@ -143,10 +123,6 @@ int main(void) {
 						mostrarProductosCategoriaBD(db, cat);
 						imprimirCarrito(*carritocliente);
 						opcion4 = menuBuscar(carritocliente, productosBD);
-//						imprimirCarrito(*carritocliente);
-//						printf("Número de productos del carrito: %d\n",
-//								carritocliente->numProductos);
-//						fflush(stdout);
 						sqlite3_close(db);
 						break;
 					case 0:
@@ -156,11 +132,7 @@ int main(void) {
 					}
 
 				} while (opcion2 != 0);
-				printf("Número de productos del carrito: %d\n",
-						carritocliente->numProductos);
-				fflush(stdout);
 			} else {
-
 				for (i = 0; i < admin.numC; i++) {
 					if ((strcmp(inicio.usuario, admin.aClientes[i].usuario) == 0)
 							&& (strcmp(inicio.contrasena,
@@ -271,11 +243,8 @@ int main(void) {
 		}
 	} while (opcion != 0);
 
-	//sqlite3_open("MueblesDeusto.db", &db);
-	//volcarListaProductosABD(db, &productosBD);
-	//sqlite3_close(db);
+	liberarMemoria(&lc);
+	liberarMemoria(&admin);
 
-//	liberarMemoria(&lc);
 	return 0;
-
 }
